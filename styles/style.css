@@ -65,6 +65,7 @@ h2 {
 .coveredImage { 
 	width: 100%;
 	max-width: 720px;
+	flex: none;
 }
 
 .coveringCanvas { 
