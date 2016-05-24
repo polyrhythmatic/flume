@@ -2,16 +2,21 @@
 <html>
 <head>
 	<script type="text/javascript" src="http://cdn.tonejs.org/latest/Tone.js"></script>
-	<script type="text/javascript" src="index.js"></script>
+	<script type="text/javascript" src="scripts/index.js"></script>
 	<title></title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 <body>
-	<div class="outsideWrapper">
-		<div class="insideWrapper">
-			<img src="cover.jpg" class="coveredImage">
-			<canvas id=myCanvas class="coveringCanvas" height="800" width="800"></canvas>
+	<main class="skin">
+		<header class="header">
+			<img class="header__logo" src="images/logo.svg" alt="Flume">
+		</header>
+		<div class="row">
+			<section class="instrument">
+				<img src="images/flower.png" class="coveredImage">
+				<canvas id="myCanvas" class="coveringCanvas" height="800" width="800"></canvas>
+			</section>
 		</div>
-	</div>
+	</main>
 </body>
 </html>

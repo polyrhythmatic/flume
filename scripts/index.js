@@ -3,7 +3,7 @@ window.onload = function(){
 	var context = canvas.getContext('2d');
 	context.setAlpha(0.003);
 	var img = new Image();
-	img.src = "mask.png";
+	img.src = "images/mask.png";
 	context.drawImage(img, 0, 0, 800, 800);
 
 	canvas.onmousemove=function(e){
@@ -65,25 +65,25 @@ function schedulePlay(num){
 
 var sampler = new Tone.Sampler({
 	A : {
-		1 : "vocals/1.wav",
-		2 : "vocals/2.wav",
-		3 : "vocals/3.wav",
-		4 : "vocals/4.wav",
-		5 : "vocals/5.wav",
-		6 : "vocals/6.wav",
-		7 : "vocals/7.wav",
-		8 : "vocals/8.wav",
-		9 : "vocals/9.wav",
-		10 : "vocals/10.wav",
-		11 : "vocals/11.wav",
-		12 : "vocals/12.wav",
-		13 : "vocals/13.wav",
-		14 : "vocals/14.wav"
+		1 : "sounds/vocals/1.wav",
+		2 : "sounds/vocals/2.wav",
+		3 : "sounds/vocals/3.wav",
+		4 : "sounds/vocals/4.wav",
+		5 : "sounds/vocals/5.wav",
+		6 : "sounds/vocals/6.wav",
+		7 : "sounds/vocals/7.wav",
+		8 : "sounds/vocals/8.wav",
+		9 : "sounds/vocals/9.wav",
+		10 : "sounds/vocals/10.wav",
+		11 : "sounds/vocals/11.wav",
+		12 : "sounds/vocals/12.wav",
+		13 : "sounds/vocals/13.wav",
+		14 : "sounds/vocals/14.wav"
 	}
 }).toMaster();
 
 var instrumental = new Tone.Player({
-	"url" : "instrumental.wav",
+	"url" : "sounds/instrumental.wav",
 	"autostart" : true 
 }).toMaster();
 
