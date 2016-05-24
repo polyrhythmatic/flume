@@ -1,10 +1,13 @@
 window.onload = function(){
 	var canvas = document.getElementById('myCanvas');
 	var context = canvas.getContext('2d');
-	context.setAlpha(0.003);
+	// context.setAlpha(0.003);
+	context.globalAlpha = 0.003;
 	var img = new Image();
 	img.src = "images/mask.png";
-	context.drawImage(img, 0, 0, 800, 800);
+	img.onload = function() {
+		context.drawImage(img, 0, 0, 720, 720);
+	}
 
 	canvas.onmousemove=function(e){
 		handleMouseover(context.getImageData(e.offsetX, e.offsetY, 1, 1).data);
