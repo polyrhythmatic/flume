@@ -7,6 +7,13 @@ html, body {
 	padding: 0;
 	min-height: 100%;
 	height: 100%;
+	font-family: Swiss;
+	font-weight: lighter;
+	color: white;
+}
+
+h2 {
+	font-weight: lighter;
 }
 
 .skin { 
@@ -38,7 +45,17 @@ html, body {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
-	width: 585px;
+}
+
+.playlist {
+	width: 50%;
+	text-align: center;
+	padding-top: 70px;
+}
+
+.playlist__title {
+	text-transform: uppercase;
+	font-size: 36px;
 }
 
 .row {
@@ -48,6 +65,7 @@ html, body {
 
 .coveredImage { 
 	width: 100%;
+	max-width: 585px;
 }
 
 .coveringCanvas { 

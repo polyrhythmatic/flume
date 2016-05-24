@@ -2,7 +2,7 @@
   font-family: 'Swiss';
   src:  url('../fonts/Swiss-Light/Swiss721BT-Light.woff2') format('woff2'),
         url('../fonts/Swiss-Light/Swiss721BT-Light.woff') format('woff');
-  font-weight: light;
+  font-weight: lighter;
 }
 
 @font-face {
