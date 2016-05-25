@@ -11,7 +11,7 @@ window.onload = function(){
 	img.src = "images/mask.png";
 	img.onload = function() {
 		context.drawImage(img, 0, 0, 720, 720);
-	}
+	};
 
 	canvas.onmousemove=function(e){
 		handleMouseover(context.getImageData(e.offsetX, e.offsetY, 1, 1).data);
@@ -42,35 +42,27 @@ function handleMouseover(color){
 			currentMouse = 0;
 			break;
 		case "255255255":
-			// currentMouse = 1;
 			schedulePlay(1);
 			break;
 		case "25500":
-			// currentMouse = 2;
 			schedulePlay(2);
 			break;
 		case "00255":
-			// currentMouse = 3;
 			schedulePlay(3);
 			break;
 		case "02550":
-			// currentMouse = 4;
 			schedulePlay(4);
 			break;
 		case "2552550":
-			// currentMouse = 5;
 			schedulePlay(5);
 			break;
 		case "2550255":
-			// currentMouse = 6;
 			schedulePlay(6);
 			break;
 		case "0255255":
-			// currentMouse = 7;
 			schedulePlay(7);
 			break;
 		case "2552550":
-			// currentMouse = 8;
 			schedulePlay(8);
 			break;
 	}
@@ -79,8 +71,8 @@ function handleMouseover(color){
 function schedulePlay(num){
 	if(currentMouse != num){
 		currentMouse = num;
-		console.log("here");
-		sampler.triggerAttack("A." + num, Tone.context.currentTime);
+		var nextNote = Math.floor(Tone.context.currentTime / 0.25);
+		sampler.triggerAttack("A." + num, nextNote.toString() + "n");
 	}
 }
 
@@ -108,6 +100,19 @@ var instrumental = new Tone.Player({
 	"autostart" : true 
 }).toMaster();
 
+var click = new Tone.SimpleSynth({
+	envelope: {
+		decay: 0.01,
+		release: 0,
+		sustain: 0
+	}
+}).toMaster();
+
+var loop = new Tone.Loop(function(time){
+	// click.triggerAttackRelease("C4", time);
+}, "4n").start(0);
+
 Tone.Buffer.on("load", function(){
-	// sampler.triggerAttack("A.1", Tone.context.currentTime);
+	console.log("loaded");
+	Tone.Transport.start();
 });
