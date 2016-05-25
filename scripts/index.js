@@ -1,9 +1,13 @@
+var context;
+var img;
+var maskVisible = false;
+
 window.onload = function(){
 	var canvas = document.getElementById('myCanvas');
-	var context = canvas.getContext('2d');
+	context = canvas.getContext('2d');
 	// context.setAlpha(0.003);
 	context.globalAlpha = 0.003;
-	var img = new Image();
+	img = new Image();
 	img.src = "images/mask.png";
 	img.onload = function() {
 		context.drawImage(img, 0, 0, 720, 720);
@@ -12,6 +16,20 @@ window.onload = function(){
 		handleMouseover(context.getImageData(e.offsetX, e.offsetY, 1, 1).data);
 	};
 };
+
+window.onclick = function() {
+	if (!maskVisible) {
+		context.globalAlpha = 0.1;
+		context.drawImage(img, 0, 0, 720, 720);
+		maskVisible = true;
+	}
+	else {
+		maskVisible = false;
+		context.clearRect(0, 0, 720, 720);
+		context.globalAlpha = 0.003;
+		context.drawImage(img, 0, 0, 720, 720);
+	}
+}
 
 var currentMouse = 0;
 
