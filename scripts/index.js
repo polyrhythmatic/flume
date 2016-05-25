@@ -8,7 +8,6 @@ window.onload = function(){
 	img.onload = function() {
 		context.drawImage(img, 0, 0, 720, 720);
 	};
-
 	canvas.onmousemove=function(e){
 		handleMouseover(context.getImageData(e.offsetX, e.offsetY, 1, 1).data);
 	};
@@ -18,7 +17,6 @@ var currentMouse = 0;
 
 function handleMouseover(color){
 	color = color[0].toString() + color[1].toString() + color[2].toString();
-	console.log(color);
 	switch(color) {
 		case "000":
 			currentMouse = 0;
@@ -79,7 +77,6 @@ var sampler = new Tone.Sampler({
 
 var instrumental = new Tone.Player({
 	"url" : "sounds/instrumental.wav",
-	"autostart" : true 
 }).toMaster();
 
 var click = new Tone.SimpleSynth({
@@ -95,6 +92,8 @@ var loop = new Tone.Loop(function(time){
 }, "4n").start(0);
 
 Tone.Buffer.on("load", function(){
-	console.log("loaded");
+	//move these two guys into a button
 	Tone.Transport.start();
+	instrumental.start();
+	//instrumental.stop to stop it
 });
