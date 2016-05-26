@@ -70,6 +70,7 @@ window.onload = function(){
 			var x = e.changedTouches[i].clientX;
 			var y = e.changedTouches[i].clientY;
 			handleButtonMove(x, y);
+			resetInactivityTimeout();
 		}
 	};
 
@@ -85,16 +86,20 @@ window.onload = function(){
 			$(".playlist").addClass("hidden");
 			$(".instrument__buttons").addClass("bring-to-front");
 
-			clearTimeout(inactivityTimeout);
-
-			inactivityTimeout  = setTimeout(function() {
-				$(".header").removeClass("hidden");
-				$(".playlist").removeClass("hidden");
-				$(".instrument__buttons").removeClass("bring-to-front");
-			}, 7000);
+			resetInactivityTimeout();
 		}
 	}
 };
+
+function resetInactivityTimeout() {
+	clearTimeout(inactivityTimeout);
+
+	inactivityTimeout  = setTimeout(function() {
+		$(".header").removeClass("hidden");
+		$(".playlist").removeClass("hidden");
+		$(".instrument__buttons").removeClass("bring-to-front");
+	}, 7000);
+}
 
 function handleButtonClick(x, y) {
 	console.log(x + ", " + y);
@@ -209,52 +214,65 @@ function handleMouseover(color){
 			break;
 		case "255255255":
 			schedulePlay(1);
+			currentMouse = 1;
 			break;
 		case "2552550":
 			schedulePlay(2);
+			currentMouse = 2;
 			break;
 		case "2550255":
 			schedulePlay(3);
+			currentMouse = 3;
 			break;
 		case "0255255":
 			schedulePlay(4);
+			currentMouse = 4;
 			break;
 		case "25500":
 			schedulePlay(5);
+			currentMouse = 5;
 			break;
 		case "02550":
 			schedulePlay(6);
+			currentMouse = 6;
 			break;
 		case "00255":
 			schedulePlay(7);
+			currentMouse = 7;
 			break;
 		case "130130130":
 			schedulePlay(8);
+			currentMouse = 8;
 			break;
 		case "1301300":
 			schedulePlay(9);
+			currentMouse = 9;
 			break;
 		case "0130130":
 			schedulePlay(10);
+			currentMouse = 10;
 			break;
 		case "1300130":
 			schedulePlay(11);
+			currentMouse = 11;
 			break;
 		case "13000":
 			schedulePlay(12);
+			currentMouse = 12;
 			break;
 		case "00130":
 			schedulePlay(13);
+			currentMouse = 13;
 			break;
 		case "01300":
 			schedulePlay(14);
+			currentMouse = 14;
 			break;
 	}
 }
 
 function schedulePlay(num){
 	if(currentMouse != num){
-		currentMouse = num;
 		var nextNote = Math.floor(Tone.context.currentTime / 0.125);
 		nextNote = nextNote * 0.125 + 0.125;
 		console.log(Tone.Transport.toSeconds(nextNote + "n"));
