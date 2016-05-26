@@ -31,11 +31,13 @@ h2 {
   padding-bottom: 0;
   text-align: center;
   width: 100%;
-  position: fixed; }
+  position: fixed;
+  z-index: 9999; }
   @media screen and (min-width: 992px) {
     .header {
       position: initial;
-      padding: 40px 20px; } }
+      padding: 40px 20px;
+      z-index: initial; } }
 
 .header__logo {
   max-width: 800px; }
@@ -170,8 +172,7 @@ h2 {
     opacity: 1; } }
 
 .header__flash {
-  padding-top: 60px;
-  z-index: 9999; }
+  padding-top: 60px; }
   @media screen and (min-width: 992px) {
     .header__flash {
       display: none; } }

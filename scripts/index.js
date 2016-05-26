@@ -78,9 +78,18 @@ window.onload = function(){
 		lastButtonY = -1;
 	};
 
+	document.getElementById("content").ontouchstart = function(e) {
+		console.log("content touch");
+		if (isInstrumentalPlaying) {
+			instrumental.stop();
+			$(".header__flash-content").text("Turn up speakers and tap screen to begin");
+			isInstrumentalPlaying = false;
+		}
+	}
+
 	document.body.ontouchstart = function(e) {
 		console.log("document on touch start");
-		if (!$(".header").hasClass("hidden")) {
+		if (!$(".header").hasClass("hidden") && e.target.id !== "content") {
 			$(".header").addClass("hidden");
 			$(".playlist").addClass("hidden");
 			$(".instrument__buttons").addClass("bring-to-front");
@@ -89,19 +98,21 @@ window.onload = function(){
 				$(".header__flash").removeClass("animate-flicker");
 				instrumental.start();
 				$(".header__flash-content").text("Stop Track");
+				isInstrumentalPlaying = true;
 			}
 
 			resetInactivityTimeout();
 		}
 	}
 
-	$(".header__flash-content").click(function(e) {
-		if (isInstrumentalPlaying) {
-			instrumental.stop();
-			$(".header__flash-content").text("Turn up speakers and tap screen to begin");
-			isInstrumentalPlaying = false;
-		}
-	});
+	// $(".header__flash-content").click(function(e) {
+	// 	if (isInstrumentalPlaying) {
+	// 		e.stopPropogation();
+	// 		instrumental.stop();
+	// 		$(".header__flash-content").text("Turn up speakers and tap screen to begin");
+	// 		isInstrumentalPlaying = false;
+	// 	}
+	// });
 };
 
 function resetInactivityTimeout() {
@@ -334,6 +345,6 @@ var loop = new Tone.Loop(function(time){
 Tone.Buffer.on("load", function(){
 	//move these two guys into a button
 	Tone.Transport.start();
-	instrumental.start();
+	// instrumental.start();
 	//instrumental.stop to stop it
 });

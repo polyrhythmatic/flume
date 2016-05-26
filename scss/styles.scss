@@ -38,9 +38,11 @@ h2 {
 	text-align: center;
 	width: 100%;
 	position: fixed;
+	z-index: 9999;
 	@media screen and (min-width: $screen-md-min) {
 		position: initial;
 		padding: 40px 20px;
+		z-index: initial;
 	}
 }
 
@@ -186,7 +188,6 @@ h2 {
 
 .header__flash {
 		padding-top: 60px;
-		z-index: 9999;
 		@media screen and (min-width: $screen-md-min) {
 			display: none;
 	  }
