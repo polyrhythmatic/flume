@@ -24,7 +24,7 @@ window.onload = function(){
 	animationContext.shadowColor = "yellow";
 
 	var maskContext = maskCanvas.getContext('2d');
-	maskContext.globalAlpha = 0.003;
+	maskContext.globalAlpha = 0.01;
 	var mask = new Image();
 	mask.src = "images/mask.png";
 	mask.onload = function() {
@@ -38,8 +38,6 @@ window.onload = function(){
 			maskLoader ++;
 			if(maskLoader == 14){
 				console.log("all masks loaded");
-
-				animationContext.drawImage(masks[0], 0, 0, 720, 720);
 			}
 		};
 	}
@@ -240,31 +238,31 @@ function handleMouseover(color){
 			schedulePlay(7);
 			currentMouse = 7;
 			break;
-		case "130130130":
+		case "858585":
 			schedulePlay(8);
 			currentMouse = 8;
 			break;
-		case "1301300":
+		case "85850":
 			schedulePlay(9);
 			currentMouse = 9;
 			break;
-		case "0130130":
+		case "08585":
 			schedulePlay(10);
 			currentMouse = 10;
 			break;
-		case "1300130":
+		case "85085":
 			schedulePlay(11);
 			currentMouse = 11;
 			break;
-		case "13000":
+		case "8500":
 			schedulePlay(12);
 			currentMouse = 12;
 			break;
-		case "00130":
+		case "0085":
 			schedulePlay(13);
 			currentMouse = 13;
 			break;
-		case "01300":
+		case "0850":
 			schedulePlay(14);
 			currentMouse = 14;
 			break;
@@ -272,6 +270,8 @@ function handleMouseover(color){
 }
 
 function schedulePlay(num){
+	// animationContext.clearRect(0, 0, animationCanvas.width, animationCanvas.height);
+	// animationContext.drawImage(masks[num], 0, 0, 720, 720);
 	if(currentMouse != num){
 		var nextNote = Math.floor(Tone.context.currentTime / 0.125);
 		nextNote = nextNote * 0.125 + 0.125;
@@ -319,6 +319,6 @@ var loop = new Tone.Loop(function(time){
 Tone.Buffer.on("load", function(){
 	//move these two guys into a button
 	Tone.Transport.start();
-	// instrumental.start();
+	instrumental.start();
 	//instrumental.stop to stop it
 });
