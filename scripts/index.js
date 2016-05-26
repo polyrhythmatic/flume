@@ -12,7 +12,7 @@ var lastButtonY;
 window.onload = function(){
 	var canvas = document.getElementById('myCanvas');
 	var context = canvas.getContext('2d');
-	context.globalAlpha = 0.3;
+	context.globalAlpha = 0.003;
 	var img = new Image();
 	img.src = "images/mask.png";
 	img.onload = function() {
@@ -37,7 +37,7 @@ window.onload = function(){
 			var y = e.touches[i].clientY;
 			handleButtonClick(x, y);
 		}
-	}
+	};
 
 	buttonCanvas.ontouchmove = function(e) {
 		for (var i = 0; i < e.changedTouches.length; i++) {
@@ -45,12 +45,12 @@ window.onload = function(){
 			var y = e.changedTouches[i].clientY;
 			handleButtonMove(x, y);
 		}
-	}
+	};
 
 	buttonCanvas.ontouchend = function(e) {
 		lastButtonX = -1;
 		lastButtonY = -1;
-	}
+	};
 };
 
 function handleButtonClick(x, y) {
