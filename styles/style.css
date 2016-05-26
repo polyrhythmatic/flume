@@ -53,17 +53,21 @@ h2 {
 .playlist {
   width: 100%;
   text-align: center;
-  padding-top: 70px;
   position: fixed;
   bottom: 0; }
   @media screen and (min-width: 992px) {
     .playlist {
       width: 50%;
-      position: initial; } }
+      position: initial;
+      padding: 0 60px;
+      padding-top: 70px; } }
 
 .playlist__title {
   text-transform: uppercase;
-  font-size: 36px; }
+  font-size: 28px; }
+  @media screen and (min-width: 992px) {
+    .playlist__title {
+      font-size: 36px; } }
 
 .row {
   flex: 1;
@@ -118,3 +122,23 @@ h2 {
   font-size: 0;
   width: 50%;
   height: 14.286%; }
+
+.playlist__embed-container {
+  position: relative;
+  padding-bottom: 80px;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  height: auto; }
+  @media screen and (min-width: 992px) {
+    .playlist__embed-container {
+      padding-bottom: 340px; } }
+
+.playlist__embed-container iframe,
+.playlist__embed-container object,
+.playlist__embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
