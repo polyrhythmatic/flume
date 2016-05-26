@@ -345,6 +345,6 @@ var loop = new Tone.Loop(function(time){
 Tone.Buffer.on("load", function(){
 	//move these two guys into a button
 	Tone.Transport.start();
-	// instrumental.start();
+	instrumental.start();
 	//instrumental.stop to stop it
 });
