@@ -1,6 +1,11 @@
-var context;
-var img;
+var maskContext;
+var mask;
 var maskVisible = false;
+var animationCanvas;
+var animationContext;
+
+var masks = [];
+var maskLoader = 0;
 
 var buttonWidth;
 var buttonHeight;
@@ -12,16 +17,35 @@ var lastButtonY;
 var inactivityTimeout;
 
 window.onload = function(){
-	var canvas = document.getElementById('myCanvas');
-	var context = canvas.getContext('2d');
-	context.globalAlpha = 0.003;
-	var img = new Image();
-	img.src = "images/mask.png";
-	img.onload = function() {
-		context.drawImage(img, 0, 0, 720, 720);
+	var maskCanvas = document.getElementById('myCanvas');
+	animationCanvas = document.getElementById('animationCanvas');
+	animationContext = animationCanvas.getContext('2d');
+	animationContext.shadowBlur = 10;
+	animationContext.shadowColor = "yellow";
+
+	var maskContext = maskCanvas.getContext('2d');
+	maskContext.globalAlpha = 0.003;
+	var mask = new Image();
+	mask.src = "images/mask.png";
+	mask.onload = function() {
+		maskContext.drawImage(mask, 0, 0, 720, 720);
 	};
-	canvas.onmousemove=function(e){
-		handleMouseover(context.getImageData(e.offsetX, e.offsetY, 1, 1).data);
+
+	for(var i = 0; i < 14; i ++){
+		masks[i] = new Image();
+		masks[i].src = "images/masks/" + (i + 1) + ".png";
+		masks[i].onload = function(){
+			maskLoader ++;
+			if(maskLoader == 14){
+				console.log("all masks loaded");
+
+				animationContext.drawImage(masks[0], 0, 0, 720, 720);
+			}
+		};
+	}
+
+	maskCanvas.onmousemove=function(e){
+		handleMouseover(maskContext.getImageData(e.offsetX, e.offsetY, 1, 1).data);
 	};
 
 	var buttonCanvas = document.getElementById("button-canvas");
