@@ -1,0 +1,164 @@
+$screen-md-min:  992px;
+
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	min-height: 100%;
+	height: 100%;
+	font-family: Swiss;
+	font-weight: 100;
+	color: white;
+	position: fixed;
+	width: 100%;
+}
+
+h2 {
+	font-weight: lighter;
+}
+
+.skin { 
+	height: 100%;
+	width: 100%;
+	background: url('../images/gradient-bg.jpg') no-repeat center center fixed;
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start; 
+  align-items: stretch;
+  align-content: stretch; 
+}
+
+.header {
+	padding: 40px 20px;
+	text-align: center;
+	width: 100%;
+	position: fixed;
+	@media screen and (min-width: $screen-md-min) {
+		position: initial;
+	}
+}
+
+.header__logo {
+	max-width: 800px;
+}
+
+.instrument { 
+	position:relative;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	height: 100%;
+	@media screen and (min-width: $screen-md-min) {
+		width: 50%;
+		height: auto;
+	}
+}
+
+.playlist {
+	width: 100%;
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	@media screen and (min-width: $screen-md-min) {
+		width: 50%;
+		position: initial;
+		padding: 0 60px;
+		padding-top: 70px;
+	}
+}
+
+.playlist__title {
+	text-transform: uppercase;
+	font-size: 28px;
+	@media screen and (min-width: $screen-md-min) {
+		font-size: 36px;
+	}
+}
+
+.row {
+	flex: 1;
+	display: block;
+	flex-wrap: wrap;
+	height: 100%;
+	@media screen and (min-width: $screen-md-min) {
+		display: flex;
+		height: auto;
+	}
+}
+
+.coveredImage { 
+	width: 100%;
+	max-width: initial;
+	flex: none;
+	display: none;
+	@media screen and (min-width: $screen-md-min) {
+		max-width: 720px;
+		display: block;
+	}
+}
+
+.flower-mobile {
+	width: 100%;
+	display: none;
+	@media screen and (min-width: $screen-md-min) {
+		display: none;
+	}
+}
+
+.coveringCanvas { 
+	width:100%; 
+	position:absolute; 
+	bottom:0px; 
+	left:0px;
+	display: none;
+	@media screen and (min-width: $screen-md-min) {
+		display: block;
+	}
+}
+
+.instrument__buttons {
+	height: 100%;
+	width: 100%;
+	z-index: 9999;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	@media screen and (min-width: $screen-md-min) {
+		display: none;
+	}
+}
+
+.instrument__button {
+	background: transparent;
+  border: none !important;
+  cursor: pointer;
+  font-size:0;
+	width: 50%;
+	height: 14.286%;
+}
+
+.playlist__embed-container {
+	position: relative;
+  // padding-bottom: 56.25%;
+  padding-bottom: 80px;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  height: auto;
+  @media screen and (min-width: $screen-md-min) {
+		padding-bottom: 340px;
+  }
+}
+
+.playlist__embed-container iframe,
+.playlist__embed-container object,
+.playlist__embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
