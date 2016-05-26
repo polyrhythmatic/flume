@@ -34,11 +34,13 @@ h2 {
 
 .header {
 	padding: 40px 20px;
+	padding-bottom: 0;
 	text-align: center;
 	width: 100%;
 	position: fixed;
 	@media screen and (min-width: $screen-md-min) {
 		position: initial;
+		padding: 40px 20px;
 	}
 }
 
@@ -95,16 +97,19 @@ h2 {
 	width: 100%;
 	max-width: initial;
 	flex: none;
-	display: none;
+	position: fixed;
+	bottom: 0;
 	@media screen and (min-width: $screen-md-min) {
 		max-width: 720px;
 		display: block;
+		position: initial;
 	}
 }
 
 .flower-mobile {
 	width: 100%;
-	display: none;
+	position: fixed;
+	bottom: 0;
 	@media screen and (min-width: $screen-md-min) {
 		display: none;
 	}
@@ -149,7 +154,7 @@ h2 {
   max-width: 100%;
   height: auto;
   @media screen and (min-width: $screen-md-min) {
-		padding-bottom: 340px;
+		padding-bottom: 300px;
   }
 }
 
@@ -161,4 +166,22 @@ h2 {
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+@keyframes flickerAnimation { /* flame pulses */
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+
+.header__flash {
+	padding-top: 60px;
+  opacity:1;  
+  animation: flickerAnimation 1.5s ease-in-out infinite;
+  & p {
+  	margin: 0;
+  }
+  @media screen and (min-width: $screen-md-min) {
+		display: none;
+  }
 }
