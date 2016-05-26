@@ -185,14 +185,18 @@ h2 {
 }
 
 .header__flash {
-	padding-top: 60px;
+		padding-top: 60px;
+		z-index: 9999;
+		@media screen and (min-width: $screen-md-min) {
+			display: none;
+	  }
+}
+
+.animate-flicker {
   opacity:1;  
   animation: flickerAnimation 1.5s ease-in-out infinite;
   & p {
   	margin: 0;
-  }
-  @media screen and (min-width: $screen-md-min) {
-		display: none;
   }
 }
 
@@ -201,5 +205,5 @@ h2 {
 }
 
 .bring-to-front {
-	z-index: 9999;
+	z-index: 9990;
 }

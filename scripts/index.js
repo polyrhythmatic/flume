@@ -15,6 +15,7 @@ var lastButtonX;
 var lastButtonY;
 
 var inactivityTimeout;
+var isInstrumentalPlaying = false;
 
 window.onload = function(){
 	var maskCanvas = document.getElementById('myCanvas');
@@ -84,9 +85,23 @@ window.onload = function(){
 			$(".playlist").addClass("hidden");
 			$(".instrument__buttons").addClass("bring-to-front");
 
+			if (!isInstrumentalPlaying) {
+				$(".header__flash").removeClass("animate-flicker");
+				instrumental.start();
+				$(".header__flash-content").text("Stop Track");
+			}
+
 			resetInactivityTimeout();
 		}
 	}
+
+	$(".header__flash-content").click(function(e) {
+		if (isInstrumentalPlaying) {
+			instrumental.stop();
+			$(".header__flash-content").text("Turn up speakers and tap screen to begin");
+			isInstrumentalPlaying = false;
+		}
+	});
 };
 
 function resetInactivityTimeout() {

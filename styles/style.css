@@ -171,16 +171,19 @@ h2 {
 
 .header__flash {
   padding-top: 60px;
-  opacity: 1;
-  animation: flickerAnimation 1.5s ease-in-out infinite; }
-  .header__flash p {
-    margin: 0; }
+  z-index: 9999; }
   @media screen and (min-width: 992px) {
     .header__flash {
       display: none; } }
+
+.animate-flicker {
+  opacity: 1;
+  animation: flickerAnimation 1.5s ease-in-out infinite; }
+  .animate-flicker p {
+    margin: 0; }
 
 .hidden {
   display: none; }
 
 .bring-to-front {
-  z-index: 9999; }
+  z-index: 9990; }
