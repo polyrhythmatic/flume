@@ -9,6 +9,8 @@ var buttonContext;
 var lastButtonX;
 var lastButtonY;
 
+var inactivityTimeout;
+
 window.onload = function(){
 	var canvas = document.getElementById('myCanvas');
 	var context = canvas.getContext('2d');
@@ -51,6 +53,23 @@ window.onload = function(){
 		lastButtonX = -1;
 		lastButtonY = -1;
 	};
+
+	document.body.ontouchstart = function(e) {
+		console.log("document on touch start");
+		if (!$(".header").hasClass("hidden")) {
+			$(".header").addClass("hidden");
+			$(".playlist").addClass("hidden");
+			$(".instrument__buttons").addClass("bring-to-front");
+
+			clearTimeout(inactivityTimeout);
+
+			inactivityTimeout  = setTimeout(function() {
+				$(".header").removeClass("hidden");
+				$(".playlist").removeClass("hidden");
+				$(".instrument__buttons").removeClass("bring-to-front");
+			}, 7000);
+		}
+	}
 };
 
 function handleButtonClick(x, y) {
@@ -62,6 +81,7 @@ function handleButtonClick(x, y) {
 	lastButtonX = buttonX;
 	lastButtonY = buttonY;	
 	drawButton(buttonX, buttonY);
+	playVocalSound(buttonX, buttonY);
 }
 
 function handleButtonMove(x, y) {
@@ -73,6 +93,7 @@ function handleButtonMove(x, y) {
 		lastButtonY = buttonY;	
 
 		drawButton(buttonX, buttonY);
+		playVocalSound(buttonX, buttonY);
 	}
 }
 
@@ -82,6 +103,59 @@ function drawButton(buttonX, buttonY) {
 	setTimeout(function() {
 		buttonContext.clearRect(0, 0, window.innerWidth, window.innerHeight);
 	}, 100);
+}
+
+function playVocalSound(buttonX, buttonY) {
+	if (buttonX === 0) {
+		switch(buttonY) {
+			case 0:
+				schedulePlay(1);
+				break;
+			case 1:
+				schedulePlay(4);
+				break;
+			case 2:
+				schedulePlay(5);
+				break;
+			case 3:
+				schedulePlay(8);
+				break;
+			case 4:
+				schedulePlay(9);
+				break;
+			case 5:
+				schedulePlay(12);
+				break;
+			case 6:
+				schedulePlay(13);
+				break;
+		}
+	}
+	else {
+		switch(buttonY) {
+			case 0:
+				schedulePlay(2);
+				break;
+			case 1:
+				schedulePlay(3);
+				break;
+			case 2:
+				schedulePlay(6);
+				break;
+			case 3:
+				schedulePlay(7);
+				break;
+			case 4:
+				schedulePlay(10);
+				break;
+			case 5:
+				schedulePlay(11);
+				break;
+			case 6:
+				schedulePlay(14);
+				break;
+		}
+	}
 }
 
 // window.onclick = function() {

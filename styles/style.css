@@ -56,7 +56,8 @@ h2 {
   width: 100%;
   text-align: center;
   position: fixed;
-  bottom: 0; }
+  bottom: 0;
+  z-index: 4; }
   @media screen and (min-width: 992px) {
     .playlist {
       width: 50%;
@@ -85,8 +86,11 @@ h2 {
   width: 100%;
   max-width: initial;
   flex: none;
-  position: fixed;
-  bottom: 0; }
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2; }
   @media screen and (min-width: 992px) {
     .coveredImage {
       max-width: 720px;
@@ -114,8 +118,13 @@ h2 {
 .instrument__buttons {
   height: 100%;
   width: 100%;
-  z-index: 9999;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  z-index: -1;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0; }
   @media screen and (min-width: 992px) {
     .instrument__buttons {
       display: none; } }
@@ -168,3 +177,9 @@ h2 {
   @media screen and (min-width: 992px) {
     .header__flash {
       display: none; } }
+
+.hidden {
+  display: none; }
+
+.bring-to-front {
+  z-index: 9999; }
