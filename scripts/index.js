@@ -2,6 +2,13 @@ var context;
 var img;
 var maskVisible = false;
 
+var buttonWidth;
+var buttonHeight;
+var buttonContext;
+
+var lastButtonX;
+var lastButtonY;
+
 window.onload = function(){
 	var canvas = document.getElementById('myCanvas');
 	context = canvas.getContext('2d');
@@ -15,21 +22,82 @@ window.onload = function(){
 	canvas.onmousemove=function(e){
 		handleMouseover(context.getImageData(e.offsetX, e.offsetY, 1, 1).data);
 	};
+
+	var buttonCanvas = document.getElementById("button-canvas");
+	buttonCanvas.width = window.innerWidth;
+	buttonCanvas.height = window.innerHeight;
+	buttonWidth = window.innerWidth/2;
+	buttonHeight = window.innerHeight/7;
+
+	buttonContext = buttonCanvas.getContext('2d');
+
+	buttonCanvas.ontouchstart = function(e) {
+		console.log(e);
+		for (var i = 0; i < e.touches.length; i++) {
+			var x = e.touches[i].clientX;
+			var y = e.touches[i].clientY;
+			handleButtonClick(x, y);
+		}
+	}
+
+	buttonCanvas.ontouchmove = function(e) {
+		for (var i = 0; i < e.changedTouches.length; i++) {
+			var x = e.changedTouches[i].clientX;
+			var y = e.changedTouches[i].clientY;
+			handleButtonMove(x, y);
+		}
+	}
+
+	buttonCanvas.ontouchend = function(e) {
+		lastButtonX = -1;
+		lastButtonY = -1;
+	}
 };
 
-window.onclick = function() {
-	if (!maskVisible) {
-		context.globalAlpha = 0.1;
-		context.drawImage(img, 0, 0, 720, 720);
-		maskVisible = true;
-	}
-	else {
-		maskVisible = false;
-		context.clearRect(0, 0, 720, 720);
-		context.globalAlpha = 0.003;
-		context.drawImage(img, 0, 0, 720, 720);
+function handleButtonClick(x, y) {
+	console.log(x + ", " + y);
+	
+	var buttonX = Math.floor(x / buttonWidth);
+	var buttonY = Math.floor(y / buttonHeight);
+
+	lastButtonX = buttonX;
+	lastButtonY = buttonY;	
+	drawButton(buttonX, buttonY);
+}
+
+function handleButtonMove(x, y) {
+	var buttonX = Math.floor(x / buttonWidth);
+	var buttonY = Math.floor(y / buttonHeight);
+
+	if (buttonX !== lastButtonX || buttonY !== lastButtonY) {
+		lastButtonX = buttonX;
+		lastButtonY = buttonY;	
+
+		drawButton(buttonX, buttonY);
 	}
 }
+
+function drawButton(buttonX, buttonY) {
+	buttonContext.fillStyle = 'rgba(255, 255, 255, 0.3)';
+	buttonContext.fillRect(buttonX*buttonWidth, buttonY*buttonHeight, buttonWidth, buttonHeight);
+	setTimeout(function() {
+		buttonContext.clearRect(0, 0, window.innerWidth, window.innerHeight);
+	}, 100);
+}
+
+// window.onclick = function() {
+// 	if (!maskVisible) {
+// 		context.globalAlpha = 0.1;
+// 		context.drawImage(img, 0, 0, 720, 720);
+// 		maskVisible = true;
+// 	}
+// 	else {
+// 		maskVisible = false;
+// 		context.clearRect(0, 0, 720, 720);
+// 		context.globalAlpha = 0.003;
+// 		context.drawImage(img, 0, 0, 720, 720);
+// 	}
+// }
 
 var currentMouse = 0;
 
