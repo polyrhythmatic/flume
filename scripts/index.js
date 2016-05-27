@@ -22,8 +22,6 @@ window.onload = function(){
 	var maskCanvas = document.getElementById('myCanvas');
 	animationCanvas = document.getElementById('animationCanvas');
 	animationContext = animationCanvas.getContext('2d');
-	animationContext.shadowBlur = 10;
-	animationContext.shadowColor = "yellow";
 
 	var maskContext = maskCanvas.getContext('2d');
 	maskContext.globalAlpha = 0.01;
@@ -40,6 +38,7 @@ window.onload = function(){
 			maskLoader ++;
 			if(maskLoader == 14){
 				console.log("all masks loaded");
+				draw();
 			}
 		};
 	}
@@ -229,20 +228,6 @@ function playVocalSound(buttonX, buttonY) {
 	}
 }
 
-// window.onclick = function() {
-// 	if (!maskVisible) {
-// 		context.globalAlpha = 0.1;
-// 		context.drawImage(img, 0, 0, 720, 720);
-// 		maskVisible = true;
-// 	}
-// 	else {
-// 		maskVisible = false;
-// 		context.clearRect(0, 0, 720, 720);
-// 		context.globalAlpha = 0.003;
-// 		context.drawImage(img, 0, 0, 720, 720);
-// 	}
-// }
-
 var currentMouse = 0;
 
 function handleMouseover(color){
@@ -314,12 +299,13 @@ function handleMouseover(color){
 }
 
 function schedulePlay(num){
-	// animationContext.clearRect(0, 0, animationCanvas.width, animationCanvas.height);
-	// animationContext.drawImage(masks[num], 0, 0, 720, 720);
+	console.log(num);
 	if(currentMouse != num){
+		animationContext.clearRect(0, 0, animationCanvas.width, animationCanvas.height);
+		animationContext.drawImage(masks[num - 1], 0, 0, animationCanvas.width, animationCanvas.height);
+
 		var nextNote = Math.floor(Tone.context.currentTime / 0.125);
 		nextNote = nextNote * 0.125 + 0.125;
-		console.log(Tone.Transport.toSeconds(nextNote + "n"));
 		sampler.triggerRelease(nextNote);
 		sampler.triggerAttack("A." + num, nextNote);
 	}
@@ -366,3 +352,18 @@ Tone.Buffer.on("load", function(){
 	// instrumental.start();
 	//instrumental.stop to stop it
 });
+
+// var counter = 0;
+// var fps = 100;
+// function draw() {
+//     setTimeout(function() {
+//         requestAnimationFrame(draw);
+//         animationContext.clearRect(0, 0, animationCanvas.width, animationCanvas.height);
+// 		animationContext.drawImage(masks[counter], 0, 0, animationCanvas.width, animationCanvas.height);
+// 		console.log(counter);
+// 		counter ++;
+// 		if(counter > 13){
+// 			counter = 0;
+// 		}
+//     }, 1000 / fps);
+// }
