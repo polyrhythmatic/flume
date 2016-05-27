@@ -59,7 +59,6 @@ window.onload = function(){
 		renderer.render(stage);
 		for(var i = 0; i < 14; i ++){
 			if(glowOutlines[i].isFadingIn){
-				console.log("fading in");
 				glowOutlines[i].sprite.alpha += fadeInc;
 				if(glowOutlines[i].sprite.alpha > 1){
 					glowOutlines[i].sprite.alpha = 1;
@@ -305,6 +304,9 @@ function handleMouseover(color){
 	switch(color) {
 		case "000":
 			if(currentMouse !== 0) {
+				for(var i = 0; i < 14; i ++){
+					glowOutlines[i].fadeOut();
+				}
 				sampler.triggerRelease(Tone.context.currentTime);
 			}
 			currentMouse = 0;
@@ -370,8 +372,9 @@ function handleMouseover(color){
 
 function schedulePlay(num){
 	console.log(num);
+	console.log("currentmouse " + currentMouse)
 	if(currentMouse != num){
-		if(num !== 0 && currentMouse !== 0 && currentMouse !== null){
+		if((num + 1) !== 0 && currentMouse !== 0 && currentMouse !== null){
 			console.log("fading stuff");
 			for(var i = 0; i < 14; i ++){
 				if(i != (num - 1)) glowOutlines[i].fadeOut();
