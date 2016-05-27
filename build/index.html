@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- // <script type="text/javascript" src="http://cdn.tonejs.org/latest/Tone.js"></script> -->
+	<!-- // <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> -->
+	<!-- // <script type="text/javascript" src="scripts/index.js"></script> -->
+	<title>Skin</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <link rel="stylesheet" type="text/css" href="styles/fonts.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="styles/style.css"> -->
+	<!-- inject:css -->
+  <link rel="stylesheet" href="/styles/main.css">
+  <!-- endinject -->
+</head>
+<body>
+	<main class="skin">
+		<header class="header">
+			<img class="header__logo" src="images/logo.svg" alt="Flume">
+			<div class="header__flash animate-flicker">
+				<button id="content" class="header__flash-content">Turn up speakers and tap screen to begin</button>
+			</div>
+		</header>
+		<div class="row">
+			<section class="instrument">
+				<button class="instrument__start-button">Start track and fill in chorus</button>
+				<button class="instrument__play-button hidden"><img src="images/play-white.svg" alt="Play track"/></button>
+				<button class="instrument__stop-button hidden"><img src="images/stop-white.svg" alt="Stop track"/></button>
+				<img src="images/flower.png" class="coveredImage">
+				<canvas id="animationCanvas" class="coveringCanvas" height="720" width="720"></canvas>
+				<canvas id="myCanvas" class="coveringCanvas" height="720" width="720"></canvas>
+				<canvas id="button-canvas" class="instrument__buttons"></canvas>
+			</section>
+			<section class="playlist">
+				<h2 class="playlist__title">Listen to 'Skin' Here</h2>
+				<div class="playlist__embed-container">
+					<iframe src="https://embed.spotify.com/?uri=spotify%3Aalbum%3A5vaoiQeWdC1ssSaM2WjcjZ" width="500" height="300" frameborder="0" allowtransparency="true"></iframe>
+				</div>
+			</section>
+		</div>
+	</main>
+  <!-- inject:js -->
+  <script src="/scripts/libraries.js"></script>
+  <script src="/scripts/main.js"></script>
+  <!-- endinject -->
+</body>
+</html>
