@@ -23,7 +23,8 @@ h2 {
 .skin { 
 	height: 100%;
 	width: 100%;
-	background: url('../images/gradient-bg.jpg') no-repeat center center fixed;
+	// background: url('../images/gradient-bg.jpg') no-repeat center center fixed;
+	background: linear-gradient(0deg, #CB7288, #AF95C5);
 	background-size: cover;
 	display: flex;
 	flex-direction: column;
