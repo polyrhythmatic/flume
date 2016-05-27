@@ -21,7 +21,8 @@ var trackPlayedOnce = false;
 window.onload = function(){
 	var maskCanvas = document.getElementById('myCanvas');
 	animationCanvas = document.getElementById('animationCanvas');
-	animationContext = animationCanvas.getContext('2d');
+	// animationContext = animationCanvas.getContext('2d');
+	var renderer = new PIXI.autoDetectRenderer(400, 300, {view: animationCanvas});
 
 	var maskContext = maskCanvas.getContext('2d');
 	maskContext.globalAlpha = 0.01;
@@ -91,7 +92,7 @@ window.onload = function(){
 			$(".header__flash-content").text("Stop Track");
 			isInstrumentalPlaying = true;
 		}
-	}
+	};
 
 	document.body.ontouchstart = function(e) {
 		console.log("document on touch start");
@@ -111,7 +112,7 @@ window.onload = function(){
 
 			resetInactivityTimeout();
 		}
-	}
+	};
 
 	$(".instrument__start-button").click(function() {
 		instrumental.start();
@@ -301,8 +302,8 @@ function handleMouseover(color){
 function schedulePlay(num){
 	console.log(num);
 	if(currentMouse != num){
-		animationContext.clearRect(0, 0, animationCanvas.width, animationCanvas.height);
-		animationContext.drawImage(masks[num - 1], 0, 0, animationCanvas.width, animationCanvas.height);
+		// animationContext.clearRect(0, 0, animationCanvas.width, animationCanvas.height);
+		// animationContext.drawImage(masks[num - 1], 0, 0, animationCanvas.width, animationCanvas.height);
 
 		var nextNote = Math.floor(Tone.context.currentTime / 0.125);
 		nextNote = nextNote * 0.125 + 0.125;
@@ -352,18 +353,3 @@ Tone.Buffer.on("load", function(){
 	// instrumental.start();
 	//instrumental.stop to stop it
 });
-
-// var counter = 0;
-// var fps = 100;
-// function draw() {
-//     setTimeout(function() {
-//         requestAnimationFrame(draw);
-//         animationContext.clearRect(0, 0, animationCanvas.width, animationCanvas.height);
-// 		animationContext.drawImage(masks[counter], 0, 0, animationCanvas.width, animationCanvas.height);
-// 		console.log(counter);
-// 		counter ++;
-// 		if(counter > 13){
-// 			counter = 0;
-// 		}
-//     }, 1000 / fps);
-// }

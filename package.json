@@ -18,6 +18,7 @@
   "homepage": "https://github.com/polyrhythmatic/flume#readme",
   "dependencies": {
     "jquery": "^2.2.4",
+    "pixi.js": "^3.0.11",
     "tone": "^0.6.1"
   },
   "devDependencies": {
