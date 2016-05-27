@@ -14,11 +14,14 @@
 		<header class="header">
 			<img class="header__logo" src="images/logo.svg" alt="Flume">
 			<div class="header__flash animate-flicker">
-				<p id="content" class="header__flash-content">Turn up speakers and tap screen to begin</p>
+				<button id="content" class="header__flash-content">Turn up speakers and tap screen to begin</button>
 			</div>
 		</header>
 		<div class="row">
 			<section class="instrument">
+				<button class="instrument__start-button">Start track and fill in chorus</button>
+				<button class="instrument__play-button hidden"><img src="images/play-white.svg" alt="Play track"/></button>
+				<button class="instrument__stop-button hidden"><img src="images/stop-white.svg" alt="Stop track"/></button>
 				<img src="images/flower.png" class="coveredImage">
 				<canvas id="animationCanvas" class="coveringCanvas" height="720" width="720"></canvas>
 				<canvas id="myCanvas" class="coveringCanvas" height="720" width="720"></canvas>

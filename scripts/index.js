@@ -16,6 +16,7 @@ var lastButtonY;
 
 var inactivityTimeout;
 var isInstrumentalPlaying = false;
+var trackPlayedOnce = false;
 
 window.onload = function(){
 	var maskCanvas = document.getElementById('myCanvas');
@@ -62,6 +63,7 @@ window.onload = function(){
 			var y = e.touches[i].clientY;
 			handleButtonClick(x, y);
 		}
+		resetInactivityTimeout();
 	};
 
 	buttonCanvas.ontouchmove = function(e) {
@@ -69,8 +71,8 @@ window.onload = function(){
 			var x = e.changedTouches[i].clientX;
 			var y = e.changedTouches[i].clientY;
 			handleButtonMove(x, y);
-			resetInactivityTimeout();
 		}
+		resetInactivityTimeout();
 	};
 
 	buttonCanvas.ontouchend = function(e) {
@@ -82,8 +84,13 @@ window.onload = function(){
 		console.log("content touch");
 		if (isInstrumentalPlaying) {
 			instrumental.stop();
-			$(".header__flash-content").text("Turn up speakers and tap screen to begin");
+			$(".header__flash-content").text("Start Track");
 			isInstrumentalPlaying = false;
+		}
+		else if (trackPlayedOnce) {
+			instrumental.start();
+			$(".header__flash-content").text("Stop Track");
+			isInstrumentalPlaying = true;
 		}
 	}
 
@@ -94,25 +101,36 @@ window.onload = function(){
 			$(".playlist").addClass("hidden");
 			$(".instrument__buttons").addClass("bring-to-front");
 
-			if (!isInstrumentalPlaying) {
+			if (!isInstrumentalPlaying && !trackPlayedOnce) {
 				$(".header__flash").removeClass("animate-flicker");
 				instrumental.start();
 				$(".header__flash-content").text("Stop Track");
+				$(".header__flash-content").css("border", "2px solid white");
 				isInstrumentalPlaying = true;
+				trackPlayedOnce = true;
 			}
 
 			resetInactivityTimeout();
 		}
 	}
 
-	// $(".header__flash-content").click(function(e) {
-	// 	if (isInstrumentalPlaying) {
-	// 		e.stopPropogation();
-	// 		instrumental.stop();
-	// 		$(".header__flash-content").text("Turn up speakers and tap screen to begin");
-	// 		isInstrumentalPlaying = false;
-	// 	}
-	// });
+	$(".instrument__start-button").click(function() {
+		instrumental.start();
+		$(this).addClass("hidden");
+		$(".instrument__stop-button").removeClass("hidden");
+	});
+
+	$(".instrument__stop-button").click(function() {
+		instrumental.stop();
+		$(this).addClass("hidden");
+		$(".instrument__play-button").removeClass("hidden");
+	});
+
+	$(".instrument__play-button").click(function() {
+		instrumental.start();
+		$(this).addClass("hidden");
+		$(".instrument__stop-button").removeClass("hidden");
+	});
 };
 
 function resetInactivityTimeout() {
@@ -345,6 +363,6 @@ var loop = new Tone.Loop(function(time){
 Tone.Buffer.on("load", function(){
 	//move these two guys into a button
 	Tone.Transport.start();
-	instrumental.start();
+	// instrumental.start();
 	//instrumental.stop to stop it
 });
