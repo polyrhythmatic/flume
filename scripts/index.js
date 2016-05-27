@@ -308,7 +308,7 @@ function handleMouseover(color){
 		case "000":
 			if(currentMouse !== 0) {
 				for(var i = 0; i < 14; i ++){
-					if(i != (num - 1)) glowOutlines[i].fadeOut();
+					if(i != currentMouse) glowOutlines[i].fadeOut();
 				}
 				sampler.triggerRelease(Tone.context.currentTime);
 			}
