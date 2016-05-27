@@ -108,8 +108,7 @@ h2 {
 	z-index: 2;
 	@media screen and (min-width: $screen-md-min) {
 		max-width: 720px;
-		display: block;
-		position: initial;
+		right: initial;
 	}
 }
 
@@ -244,4 +243,8 @@ button {
 .instrument__stop-button img{
 	width: 17px;
 	height: 17px;
+}
+
+.hidden {
+	display: none;
 }
