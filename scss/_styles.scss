@@ -128,6 +128,7 @@ h2 {
 	left:0px;
 	display: none;
 	z-index: 4;
+	max-width: 720px;
 	@media screen and (min-width: $screen-md-min) {
 		display: block;
 	}
