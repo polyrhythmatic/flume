@@ -38,7 +38,7 @@ window.onload = function(){
 			maskLoader ++;
 			if(maskLoader == 14){
 				console.log("all masks loaded");
-				draw();
+				// draw();
 			}
 		};
 	}
