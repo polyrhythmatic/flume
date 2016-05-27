@@ -1,4 +1,5 @@
 $screen-md-min:  992px;
+$screen-xl-min: 1200px;
 
 * {
 	box-sizing: border-box;
@@ -75,6 +76,9 @@ h2 {
 		position: initial;
 		padding: 0 60px;
 		padding-top: 70px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 	}
 }
 
@@ -169,6 +173,9 @@ h2 {
   @media screen and (min-width: $screen-md-min) {
 		padding-bottom: 300px;
   }
+  @media screen and (min-width: $screen-xl-min) {
+		padding-bottom: 350px;
+  }
 }
 
 .playlist__embed-container iframe,
@@ -235,10 +242,18 @@ button {
 	@media screen and (min-width: $screen-md-min) {
 		display: block;
 	}
+	@media screen and (min-width: $screen-xl-min) {
+		top: initial;
+		bottom: 500px;
+		right: 30px;
+	}
 }
 
 .instrument__stop-button, .instrument__play-button {
 	right: 110px;
+	@media screen and (min-width: $screen-xl-min) {
+		right: 180px;
+	}
 }
 
 .instrument__stop-button img{
