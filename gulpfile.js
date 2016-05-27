@@ -53,9 +53,9 @@ gulp.task('html', function() {
 
 gulp.task('inject', ['html', 'scripts', 'vendor-scripts', 'styles'], function() {
 	var target = gulp.src('./build/index.html');
-	var sources = gulp.src(['./**/*.js', './**/*.css'], {read: false, cwd: __dirname + '/build'});
+	var sources = gulp.src(['./**/*.js', './**/*.css'], {read: false, cwd: __dirname + '/build/'});
 
-	return target.pipe(inject(sources))
+	return target.pipe(inject(sources, {addRootSlash: false}))
     .pipe(gulp.dest('./build'));
 });
 
