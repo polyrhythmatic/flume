@@ -18,11 +18,80 @@ var inactivityTimeout;
 var isInstrumentalPlaying = false;
 var trackPlayedOnce = false;
 
+
+var glowOutlines = [];
+// var circle;
+var stage = new PIXI.Container();
+
+var glowOutline = function(num){
+	this.texture = new PIXI.Texture.fromImage('images/masks/' + (num + 1) + '.png');
+	this.sprite = new PIXI.Sprite(this.texture);
+	this.sprite.width = animationCanvas.width;
+	this.sprite.height = animationCanvas.height;
+	this.sprite.alpha = 0;
+	stage.addChild(this.sprite);
+	this.isFadingIn = false;
+	this.isFadingOut = false;
+};
+
+glowOutline.prototype.fadeIn = function(){
+	this.isFadingIn = true;
+	this.isFadingOut = false;
+};
+
+glowOutline.prototype.fadeOut = function(){
+	this.isFadingOut = true;
+	this.isFadingIn = false;
+};
+
 window.onload = function(){
 	var maskCanvas = document.getElementById('myCanvas');
 	animationCanvas = document.getElementById('animationCanvas');
 	// animationContext = animationCanvas.getContext('2d');
-	var renderer = new PIXI.autoDetectRenderer(400, 300, {view: animationCanvas});
+	var renderer = new PIXI.autoDetectRenderer(700, 700, {
+		view: animationCanvas,
+		transparent: true
+	});
+
+	// var counter = 0;
+	var fadeInc = 0.1;
+	function animate() {
+		renderer.render(stage);
+		for(var i = 0; i < 14; i ++){
+			if(glowOutlines[i].isFadingIn){
+				console.log("fading in");
+				glowOutlines[i].sprite.alpha += fadeInc;
+				if(glowOutlines[i].sprite.alpha > 1){
+					glowOutlines[i].sprite.alpha = 1;
+					glowOutlines[i].isFadingIn = false;
+				}
+			}
+			if(glowOutlines[i].isFadingOut){
+				glowOutlines[i].sprite.alpha -= fadeInc;
+				if(glowOutlines[i].sprite.alpha < 0){
+					glowOutlines[i].sprite.alpha = 0;
+					glowOutlines[i].isFadingOut = false;
+				}
+			}
+		}
+		// sprites[1].alpha = counter/100;
+		// counter ++;
+		// if(counter > 100) counter = 0;
+		requestAnimationFrame(animate);
+	}
+
+	for(var i = 0; i < 14; i ++) {
+		glowOutlines[i] = new glowOutline(i);
+	}
+
+	// circle = new PIXI.Graphics();
+	// circle.lineStyle ( 1 , 0x000000,  1);
+	// circle.beginFill(0x55728A, 0.5);
+	// circle.drawCircle(0, 0, 20);
+	// circle.endFill();
+	// stage.addChild(circle);
+
+	animate();
 
 	var maskContext = maskCanvas.getContext('2d');
 	maskContext.globalAlpha = 0.01;
@@ -32,17 +101,17 @@ window.onload = function(){
 		maskContext.drawImage(mask, 0, 0, 720, 720);
 	};
 
-	for(var i = 0; i < 14; i ++){
-		masks[i] = new Image();
-		masks[i].src = "images/masks/" + (i + 1) + ".png";
-		masks[i].onload = function(){
-			maskLoader ++;
-			if(maskLoader == 14){
-				console.log("all masks loaded");
-				// draw();
-			}
-		};
-	}
+	// for(var i = 0; i < 14; i ++){
+	// 	masks[i] = new Image();
+	// 	masks[i].src = "images/masks/" + (i + 1) + ".png";
+	// 	masks[i].onload = function(){
+	// 		maskLoader ++;
+	// 		if(maskLoader == 14){
+	// 			console.log("all masks loaded");
+	// 			// draw();
+	// 		}
+	// 	};
+	// }
 
 	maskCanvas.onmousemove=function(e){
 		handleMouseover(maskContext.getImageData(e.offsetX, e.offsetY, 1, 1).data);
@@ -302,9 +371,13 @@ function handleMouseover(color){
 function schedulePlay(num){
 	console.log(num);
 	if(currentMouse != num){
-		// animationContext.clearRect(0, 0, animationCanvas.width, animationCanvas.height);
-		// animationContext.drawImage(masks[num - 1], 0, 0, animationCanvas.width, animationCanvas.height);
-
+		if(num !== 0 && currentMouse !== 0 && currentMouse !== null){
+			console.log("fading stuff");
+			for(var i = 0; i < 14; i ++){
+				if(i != (num - 1)) glowOutlines[i].fadeOut();
+			}
+			glowOutlines[num - 1].fadeIn();
+		}
 		var nextNote = Math.floor(Tone.context.currentTime / 0.125);
 		nextNote = nextNote * 0.125 + 0.125;
 		sampler.triggerRelease(nextNote);
@@ -346,6 +419,7 @@ var click = new Tone.SimpleSynth({
 var loop = new Tone.Loop(function(time){
 	// click.triggerAttackRelease("C4", time);
 }, "4n").start(0);
+
 
 Tone.Buffer.on("load", function(){
 	//move these two guys into a button

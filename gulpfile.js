@@ -34,7 +34,7 @@ gulp.task('vendor-scripts', function() {
 gulp.task('scripts', function() {
 	gulp.src(['./scripts/index.js'])
 	.pipe(concat('main.js'))
-	.pipe(uglify())
+	// .pipe(uglify())
 	.pipe(gulp.dest('./build/scripts'));
 });
 
