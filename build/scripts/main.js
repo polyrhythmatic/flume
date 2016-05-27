@@ -211,7 +211,7 @@ function resetInactivityTimeout() {
 		$(".header").removeClass("hidden");
 		$(".playlist").removeClass("hidden");
 		$(".instrument__buttons").removeClass("bring-to-front");
-	}, 7000);
+	}, 3000);
 }
 
 function handleButtonClick(x, y) {
