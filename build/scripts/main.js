@@ -410,9 +410,9 @@ var sampler = new Tone.Sampler({
 	}
 }).toMaster();
 
-var instrumental = new Tone.Player({
-	"url" : "sounds/instrumental.mp3",
-}).toMaster();
+// var instrumental = new Tone.Player({
+// 	"url" : "sounds/instrumental.mp3",
+// }).toMaster();
 
 var click = new Tone.SimpleSynth({
 	envelope: {
