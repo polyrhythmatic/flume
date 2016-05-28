@@ -25,7 +25,7 @@ gulp.task('sounds', function() {
 });
 
 gulp.task('vendor-scripts', function() {
-	gulp.src(['./node_modules/tone/Build/Tone.js', './node_modules/jquery/dist/jquery.js', './node_modules/pixi.js/bin/pixi.js'])
+	gulp.src(['./node_modules/tone/Build/Tone.js', './node_modules/jquery/dist/jquery.js', './node_modules/pixi.js/bin/pixi.js', './node_modules/async/dist/async.js'])
 		.pipe(concat('libraries.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('./build/scripts'));
