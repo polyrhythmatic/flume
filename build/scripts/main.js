@@ -21,7 +21,6 @@ var trackPlayedOnce = false;
 
 
 var glowOutlines = [];
-// var circle;
 var stage = new PIXI.Container();
 
 var glowOutline = function(num){
@@ -49,13 +48,11 @@ window.onload = function(){
 	if (window.innerWidth >= MOBILE_MAX_WIDTH) {
 			var maskCanvas = document.getElementById('myCanvas');
 			animationCanvas = document.getElementById('animationCanvas');
-			// animationContext = animationCanvas.getContext('2d');
 			var renderer = new PIXI.autoDetectRenderer(700, 700, {
 				view: animationCanvas,
 				transparent: true
 			});
 
-			// var counter = 0;
 			var fadeInc = 0.1;
 			function animate() {
 				renderer.render(stage);
@@ -75,47 +72,25 @@ window.onload = function(){
 						}
 					}
 				}
-				// sprites[1].alpha = counter/100;
-				// counter ++;
-				// if(counter > 100) counter = 0;
 				requestAnimationFrame(animate);
 			}
 
 			for(var i = 0; i < 14; i ++) {
 				glowOutlines[i] = new glowOutline(i);
 			}
-
-			// circle = new PIXI.Graphics();
-			// circle.lineStyle ( 1 , 0x000000,  1);
-			// circle.beginFill(0x55728A, 0.5);
-			// circle.drawCircle(0, 0, 20);
-			// circle.endFill();
-			// stage.addChild(circle);
-
 			animate();
 
 			var maskContext = maskCanvas.getContext('2d');
 			maskContext.globalAlpha = 0.01;
 			var mask = new Image();
-			mask.src = "images/mask.png";
+			mask.src = "images/mask-update.png";
 			mask.onload = function() {
 				maskContext.drawImage(mask, 0, 0, 720, 720);
 			};
 
-			// for(var i = 0; i < 14; i ++){
-			// 	masks[i] = new Image();
-			// 	masks[i].src = "images/masks/" + (i + 1) + ".png";
-			// 	masks[i].onload = function(){
-			// 		maskLoader ++;
-			// 		if(maskLoader == 14){
-			// 			console.log("all masks loaded");
-			// 			// draw();
-			// 		}
-			// 	};
-			// }
-
 			maskCanvas.onmousemove=function(e){
 				handleMouseover(maskContext.getImageData(e.offsetX, e.offsetY, 1, 1).data);
+				console.log("this is the current mouse" + currentMouse);
 			};
 	}
 
@@ -308,7 +283,7 @@ function handleMouseover(color){
 		case "000":
 			if(currentMouse !== 0) {
 				for(var i = 0; i < 14; i ++){
-					if(i != currentMouse) glowOutlines[i].fadeOut();
+					glowOutlines[i].fadeOut();
 				}
 				sampler.triggerRelease(Tone.context.currentTime);
 			}
@@ -374,16 +349,16 @@ function handleMouseover(color){
 }
 
 function schedulePlay(num){
-	console.log(num);
-	console.log("currentmouse " + currentMouse)
-	if(currentMouse != num){
-		if((num + 1) !== 0 && currentMouse !== 0 && currentMouse !== null){
-			console.log("fading stuff");
-			for(var i = 0; i < 14; i ++){
-				if(i != (num - 1)) glowOutlines[i].fadeOut();
-			}
-			glowOutlines[num - 1].fadeIn();
+	console.log("num " + num);
+	console.log("currentmouse " + currentMouse);
+	if(currentMouse !== 0 && currentMouse !== null){
+		console.log("fading stuff");
+		for(var i = 0; i < 14; i ++){
+			if(i != (num - 1)) glowOutlines[i].fadeOut();
 		}
+		glowOutlines[num - 1].fadeIn();
+	}
+	if(currentMouse != num){
 		var nextNote = Math.floor(Tone.context.currentTime / 0.125);
 		nextNote = nextNote * 0.125 + 0.125;
 		sampler.triggerRelease(nextNote);
