@@ -7,6 +7,14 @@ var cleanCSS = require('gulp-clean-css');
 var sass = require('gulp-sass');
 var inject = require('gulp-inject');
 var cache = require('gulp-cache');
+var del = require('del');
+var cache = require('gulp-cached');
+var runSequence = require('run-sequence');
+
+gulp.task('clean', function() {
+	cache.caches = {};
+	del.sync('./build');
+});
 
 gulp.task('images', function(){
 	gulp.src('./images/**/*')
@@ -59,13 +67,29 @@ gulp.task('inject', ['html', 'scripts', 'vendor-scripts', 'styles'], function() 
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('build', ['images', 'fonts', 'sounds', 'inject'], function() {
-	console.log("Gulp is built and is watching for changes");
+gulp.task('watch', function() {
 	gulp.watch("./scss/**/*.scss", ['styles']);
 	gulp.watch("./scripts/**/*.js", ['scripts']);
 	gulp.watch("./index.html", ["inject"]);
 	gulp.watch("./sounds/**/*", ["sounds"]);
 	gulp.watch("./images/**/*", ["images"]);
 	gulp.watch("./fonts/**/*", ["fonts"]);
+})
+
+gulp.task('build', function() {
+	runSequence(
+		'clean',
+		[
+			'images',
+			'fonts',
+			'sounds',
+			'vendor-scripts',
+			'scripts',
+			'styles',
+			'html'
+		],
+		'inject',
+		'watch'
+	);
 });
 
