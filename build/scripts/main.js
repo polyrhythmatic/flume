@@ -349,10 +349,7 @@ function handleMouseover(color){
 }
 
 function schedulePlay(num){
-	console.log("num " + num);
-	console.log("currentmouse " + currentMouse);
 	if(currentMouse !== 0 && currentMouse !== null){
-		console.log("fading stuff");
 		for(var i = 0; i < 14; i ++){
 			if(i != (num - 1)) glowOutlines[i].fadeOut();
 		}
@@ -387,7 +384,7 @@ var sampler = new Tone.Sampler({
 
 var instrumental = new Tone.Player({
 	"url" : "sounds/instrumental.mp3",
-}).toMaster();
+});//.toMaster();
 
 var click = new Tone.SimpleSynth({
 	envelope: {
@@ -401,6 +398,31 @@ var loop = new Tone.Loop(function(time){
 	// click.triggerAttackRelease("C4", time);
 }, "4n").start(0);
 
+var buffers = [];
+
+var instrumentals = [];
+for(var i = 0; i < 39; i ++){
+	instrumentals[i] = new Tone.Player().toMaster();
+}
+for(var i = 0; i < 39; i ++){
+	buffers[i] = new Tone.Buffer();
+}
+
+buffers[0] = new Tone.Buffer("sounds/instrumentals/instrumental_0.mp3", function(){
+});
+
+function getNewBuffer(buffCount){
+	instrumentals[buffCount].buffer = buffers[buffCount - 1].get();
+	// instrumentals[buffCount].sync();
+	var timeStart = (buffCount * 3) + ":0:0";
+	console.log(timeStart);
+	instrumentals[buffCount].start(timeStart);
+	if(buffCount < 38	){
+		buffers[buffCount].load("sounds/instrumentals/instrumental_" + buffCount + ".mp3", function(){
+			getNewBuffer(buffCount + 1);
+		});
+	}
+}
 
 Tone.Buffer.on("load", function(){
 	//move these two guys into a button
