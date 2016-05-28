@@ -393,20 +393,20 @@ function schedulePlay(num){
 
 var sampler = new Tone.Sampler({
 	A : {
-		1 : "sounds/vocals/1.wav",
-		2 : "sounds/vocals/2.wav",
-		3 : "sounds/vocals/3.wav",
-		4 : "sounds/vocals/4.wav",
-		5 : "sounds/vocals/5.wav",
-		6 : "sounds/vocals/6.wav",
-		7 : "sounds/vocals/7.wav",
-		8 : "sounds/vocals/8.wav",
-		9 : "sounds/vocals/9.wav",
-		10 : "sounds/vocals/10.wav",
-		11 : "sounds/vocals/11.wav",
-		12 : "sounds/vocals/12.wav",
-		13 : "sounds/vocals/13.wav",
-		14 : "sounds/vocals/14.wav"
+		1 : "sounds/vocals/1.mp3",
+		2 : "sounds/vocals/2.mp3",
+		3 : "sounds/vocals/3.mp3",
+		4 : "sounds/vocals/4.mp3",
+		5 : "sounds/vocals/5.mp3",
+		6 : "sounds/vocals/6.mp3",
+		7 : "sounds/vocals/7.mp3",
+		8 : "sounds/vocals/8.mp3",
+		9 : "sounds/vocals/9.mp3",
+		10 : "sounds/vocals/10.mp3",
+		11 : "sounds/vocals/11.mp3",
+		12 : "sounds/vocals/12.mp3",
+		13 : "sounds/vocals/13.mp3",
+		14 : "sounds/vocals/14.mp3"
 	}
 }).toMaster();
 
@@ -430,6 +430,7 @@ var loop = new Tone.Loop(function(time){
 Tone.Buffer.on("load", function(){
 	//move these two guys into a button
 	Tone.Transport.start();
+	$(".loader").addClass("hidden");
 	// instrumental.start();
 	//instrumental.stop to stop it
 });

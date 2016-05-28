@@ -60,6 +60,7 @@ gulp.task('inject', ['html', 'scripts', 'vendor-scripts', 'styles'], function() 
 });
 
 gulp.task('build', ['images', 'fonts', 'sounds', 'vendor-scripts', 'scripts', 'styles', 'html', 'inject'], function() {
+	console.log("Gulp is built and is watching for changes");
 	gulp.watch("./scss/**/*.scss", ['styles']);
 	gulp.watch("./scripts/**/*.js", ['scripts']);
 	gulp.watch("./index.html", ["inject"]);
