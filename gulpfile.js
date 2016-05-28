@@ -41,7 +41,7 @@ gulp.task('scripts', function() {
 gulp.task('styles', function(){
 	gulp.src(['./scss/**/*.scss'])
 	.pipe(sass())
-  .pipe(autoprefixer('last 2 versions'))
+  .pipe(autoprefixer({ browsers: ['last 3 versions'] }))
   .pipe(cleanCSS({compatibility: 'ie8'}))
   .pipe(gulp.dest('build/styles/'))
 });
