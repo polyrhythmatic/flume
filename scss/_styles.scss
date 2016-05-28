@@ -227,6 +227,7 @@ button {
 	font-size: 13px;
 	cursor: pointer;
 	letter-spacing: 3.2px;
+	overflow: visible;
 	&:hover {
 		color: #dbdbdb;
 	}
