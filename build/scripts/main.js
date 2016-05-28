@@ -399,35 +399,57 @@ var loop = new Tone.Loop(function(time){
 }, "4n").start(0);
 
 var buffers = [];
-
 var instrumentals = [];
 for(var i = 0; i < 39; i ++){
 	instrumentals[i] = new Tone.Player().toMaster();
-}
-for(var i = 0; i < 39; i ++){
 	buffers[i] = new Tone.Buffer();
 }
 
-buffers[0] = new Tone.Buffer("sounds/instrumentals/instrumental_0.mp3", function(){
-});
-
-function getNewBuffer(buffCount){
-	instrumentals[buffCount].buffer = buffers[buffCount - 1].get();
-	// instrumentals[buffCount].sync();
-	var timeStart = (buffCount * 3) + ":0:0";
-	console.log(timeStart);
-	instrumentals[buffCount].start(timeStart);
-	if(buffCount < 38	){
-		buffers[buffCount].load("sounds/instrumentals/instrumental_" + buffCount + ".mp3", function(){
-			getNewBuffer(buffCount + 1);
-		});
-	}
+var bufferNums = [];
+for(var i = 0; i < 38; i ++){
+	bufferNums[i] = i + 1;
 }
 
+function loadInstrumentals(){
+	async.eachSeries(bufferNums, function(bufferNum, cb){
+		buffers[bufferNum].load("sounds/instrumentals/instrumental_" + bufferNum + ".mp3", function(){
+			instrumentals[bufferNum].buffer = buffers[bufferNum].get();
+			var timeStart = (bufferNum * 3) + ":0:0";
+			console.log(timeStart);
+			instrumentals[bufferNum].start(timeStart);
+			cb();
+		}, function(err){
+
+		});
+	});
+}
+
+buffers[0] = new Tone.Buffer("sounds/instrumentals/instrumental_0.mp3", function(){
+	instrumentals[0].buffer = buffers[0].get();
+	instrumentals[0].start(0);
+});
+// function getNewBuffer(buffCount){
+// 	instrumentals[buffCount].buffer = buffers[buffCount - 1].get();
+// 	// instrumentals[buffCount].sync();
+// 	var timeStart = (buffCount * 3) + ":0:0";
+// 	console.log(timeStart);
+// 	instrumentals[buffCount].start(timeStart);
+// 	if(buffCount < 38	){
+// 		buffers[buffCount].load("sounds/instrumentals/instrumental_" + buffCount + ".mp3", function(){
+// 			getNewBuffer(buffCount + 1);
+// 		});
+// 	}
+// }
+
+var instLoad = false;
 Tone.Buffer.on("load", function(){
-	//move these two guys into a button
-	Tone.Transport.start();
-	$(".loader").addClass("hidden");
-	// instrumental.start();
-	//instrumental.stop to stop it
+	if(!instLoad){
+		//move these two guys into a button
+		Tone.Transport.start();
+		loadInstrumentals();
+		$(".loader").addClass("hidden");
+		// instrumental.start();
+		//instrumental.stop to stop it}
+		instLoad = true;
+	}
 });
