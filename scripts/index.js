@@ -129,12 +129,12 @@ window.onload = function(){
 	document.getElementById("content").ontouchstart = function(e) {
 		console.log("content touch");
 		if (isInstrumentalPlaying) {
-			instrumental.stop();
+			Tone.Transport.pause();
 			$(".header__flash-content").text("Start Track");
 			isInstrumentalPlaying = false;
 		}
 		else if (trackPlayedOnce) {
-			instrumental.start();
+			Tone.Transport.start();
 			$(".header__flash-content").text("Stop Track");
 			isInstrumentalPlaying = true;
 		}
@@ -149,7 +149,7 @@ window.onload = function(){
 
 			if (!isInstrumentalPlaying && !trackPlayedOnce) {
 				$(".header__flash").removeClass("animate-flicker");
-				instrumental.start();
+				Tone.Transport.start();
 				$(".header__flash-content").text("Stop Track");
 				$(".header__flash-content").css("border", "2px solid white");
 				isInstrumentalPlaying = true;
@@ -161,19 +161,19 @@ window.onload = function(){
 	};
 
 	$(".instrument__start-button").click(function() {
-		instrumental.start();
+		Tone.Transport.start();
 		$(this).addClass("hidden");
 		$(".instrument__stop-button").removeClass("hidden");
 	});
 
 	$(".instrument__stop-button").click(function() {
-		instrumental.stop();
+		Tone.Transport.pause();
 		$(this).addClass("hidden");
 		$(".instrument__play-button").removeClass("hidden");
 	});
 
 	$(".instrument__play-button").click(function() {
-		instrumental.start();
+		Tone.Transport.start();
 		$(this).addClass("hidden");
 		$(".instrument__stop-button").removeClass("hidden");
 	});
@@ -415,8 +415,11 @@ function loadInstrumentals(){
 		buffers[bufferNum].load("sounds/instrumentals/instrumental_" + bufferNum + ".mp3", function(){
 			instrumentals[bufferNum].buffer = buffers[bufferNum].get();
 			var timeStart = (bufferNum * 3) + ":0:0";
-			console.log(timeStart);
-			instrumentals[bufferNum].start(timeStart);
+			Tone.Transport.schedule(function(){
+				instrumentals[bufferNum].start(timeStart);
+			}, timeStart);
+			// instrumentals[bufferNum].sync(timeStart);
+			console.log("loaded " + bufferNum);
 			cb();
 		}, function(err){
 
@@ -424,32 +427,22 @@ function loadInstrumentals(){
 	});
 }
 
+function stopAllInstrumentals(){
+	for(var i = 0; i < instrumentals.length; i ++){
+		instrumentals[i].stop();
+	}
+}
+
 buffers[0] = new Tone.Buffer("sounds/instrumentals/instrumental_0.mp3", function(){
 	instrumentals[0].buffer = buffers[0].get();
-	instrumentals[0].start(0);
+	instrumentals[0].sync(0);
 });
-// function getNewBuffer(buffCount){
-// 	instrumentals[buffCount].buffer = buffers[buffCount - 1].get();
-// 	// instrumentals[buffCount].sync();
-// 	var timeStart = (buffCount * 3) + ":0:0";
-// 	console.log(timeStart);
-// 	instrumentals[buffCount].start(timeStart);
-// 	if(buffCount < 38	){
-// 		buffers[buffCount].load("sounds/instrumentals/instrumental_" + buffCount + ".mp3", function(){
-// 			getNewBuffer(buffCount + 1);
-// 		});
-// 	}
-// }
 
 var instLoad = false;
 Tone.Buffer.on("load", function(){
 	if(!instLoad){
-		//move these two guys into a button
-		Tone.Transport.start();
 		loadInstrumentals();
 		$(".loader").addClass("hidden");
-		// instrumental.start();
-		//instrumental.stop to stop it}
 		instLoad = true;
 	}
 });
