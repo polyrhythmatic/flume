@@ -191,24 +191,16 @@ window.onload = function(){
 	};
 
 	document.body.ontouchstart = function(e) {
-		console.log("document on touch start");
-		if (!$(".header").hasClass("hidden") && e.target.id !== "content" && $(".loader").hasClass("hidden")) {
-			$(".header").addClass("hidden");
-			$(".playlist").addClass("hidden");
-			$(".instrument__buttons").addClass("bring-to-front");
-
-			if (!isInstrumentalPlaying && !trackPlayedOnce) {
-				$(".header__flash").removeClass("animate-flicker");
-				startMusic();
-				$(".header__flash-content").text("Stop Track");
-				$(".header__flash-content").css("border", "2px solid white");
-				isInstrumentalPlaying = true;
-				trackPlayedOnce = true;
-			}
-
-			resetInactivityTimeout();
-		}
+		handleDocumentOnTouchStart(e);
+		return false;
 	};
+
+	document.body.onclick = function(e) {
+		if (window.innerWidth < MOBILE_MAX_WIDTH) {
+			console.log("document on click");
+			handleDocumentOnTouchStart(e);
+		}
+	}
 
 	$(".instrument__start-button").click(function() {
 		startMusic();
@@ -244,6 +236,26 @@ window.onload = function(){
 		$(".instrument__stop-button").removeClass("hidden");
 	});
 };
+
+function handleDocumentOnTouchStart(e) {
+	console.log("document on touch start");
+	if (!$(".header").hasClass("hidden") && e.target.id !== "content" && $(".loader").hasClass("hidden")) {
+		$(".header").addClass("hidden");
+		$(".playlist").addClass("hidden");
+		$(".instrument__buttons").addClass("bring-to-front");
+
+		if (!isInstrumentalPlaying && !trackPlayedOnce) {
+			$(".header__flash").removeClass("animate-flicker");
+			startMusic();
+			$(".header__flash-content").text("Stop Track");
+			$(".header__flash-content").css("border", "2px solid white");
+			isInstrumentalPlaying = true;
+			trackPlayedOnce = true;
+		}
+
+		resetInactivityTimeout();
+	}
+}
 
 function handleKeydown(keyCode) {
 	switch(keyCode) {
