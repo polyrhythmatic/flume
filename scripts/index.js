@@ -58,19 +58,20 @@ window.onload = function(){
 				transparent: true
 			});
 
-			var fadeInc = 0.1;
+			var fadeInInc = 0.1;
+			var fadeOutInc = 0.01;
 			function animate() {
 				renderer.render(stage);
 				for(var i = 0; i < 14; i ++){
 					if(glowOutlines[i].isFadingIn){
-						glowOutlines[i].sprite.alpha += fadeInc;
+						glowOutlines[i].sprite.alpha += fadeInInc;
 						if(glowOutlines[i].sprite.alpha > 1){
 							glowOutlines[i].sprite.alpha = 1;
 							glowOutlines[i].isFadingIn = false;
 						}
 					}
 					if(glowOutlines[i].isFadingOut){
-						glowOutlines[i].sprite.alpha -= fadeInc;
+						glowOutlines[i].sprite.alpha -= fadeOutInc;
 						if(glowOutlines[i].sprite.alpha < 0){
 							glowOutlines[i].sprite.alpha = 0;
 							glowOutlines[i].isFadingOut = false;
@@ -138,7 +139,7 @@ window.onload = function(){
 	document.getElementById("content").ontouchstart = function(e) {
 		console.log("content touch");
 		if (isInstrumentalPlaying) {
-			Tone.Transport.pause();
+			Tone.Transport.stop();
 			$(".header__flash-content").text("Start Track");
 			isInstrumentalPlaying = false;
 		}
@@ -192,7 +193,7 @@ window.onload = function(){
 	});
 
 	$(".instrument__stop-button").click(function() {
-		Tone.Transport.pause();
+		Tone.Transport.stop();
 		$(this).addClass("hidden");
 		$(".instrument__play-button").removeClass("hidden");
 	});
@@ -528,12 +529,6 @@ function loadInstrumentals(){
 
 		});
 	});
-}
-
-function stopAllInstrumentals(){
-	for(var i = 0; i < instrumentals.length; i ++){
-		instrumentals[i].stop();
-	}
 }
 
 buffers[0] = new Tone.Buffer("sounds/instrumentals/instrumental_0.mp3", function(){
