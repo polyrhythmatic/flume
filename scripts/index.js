@@ -40,7 +40,6 @@ glowOutline.prototype.fadeIn = function(){
 };
 
 glowOutline.prototype.fadeOut = function(){
-	console.log("calling fadeOut");
 	this.isFadingOut = true;
 	this.isFadingIn = false;
 };

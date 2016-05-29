@@ -40,7 +40,6 @@ glowOutline.prototype.fadeIn = function(){
 };
 
 glowOutline.prototype.fadeOut = function(){
-	console.log("calling fadeOut");
 	this.isFadingOut = true;
 	this.isFadingIn = false;
 };
@@ -174,13 +173,15 @@ window.onload = function(){
 		Tone.Transport.start();
 		$(this).addClass("hidden");
 		$(".instrument__stop-button").removeClass("hidden");
-		for (var i = 0; i < 14; i++) {
-			setTimeout(function(k) {
-				glowOutlines[k].fadeIn();
-			}.bind(this, i), 2*i*50);
-			setTimeout(function(j) {
-				glowOutlines[j].fadeOut();
-			}.bind(this, i), 2*(i+1)*50);
+		if (window.innerWidth >= MOBILE_MAX_WIDTH) {
+			for (var i = 0; i < 14; i++) {
+				setTimeout(function(k) {
+					glowOutlines[k].fadeIn();
+				}.bind(this, i), 2*i*50);
+				setTimeout(function(j) {
+					glowOutlines[j].fadeOut();
+				}.bind(this, i), 2*(i+1)*50);
+			}
 		}
 	});
 

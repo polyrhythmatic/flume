@@ -229,7 +229,11 @@ button {
 	letter-spacing: 3.2px;
 	overflow: visible;
 	&:hover {
-		color: #dbdbdb;
+		color: #443690;
+		border-color: #443690;
+		& g {
+			fill: #443690;
+		} 
 	}
 	outline: none;
 }
