@@ -180,6 +180,7 @@ window.onload = function(){
 			isInstrumentalPlaying = false;
 		}
 		else if (trackPlayedOnce) {
+			fakeosc.start();
 			startMusic();
 			$(".header__flash-content").text("Stop Track");
 			isInstrumentalPlaying = true;
@@ -195,6 +196,7 @@ window.onload = function(){
 
 			if (!isInstrumentalPlaying && !trackPlayedOnce) {
 				$(".header__flash").removeClass("animate-flicker");
+				fakeosc.start();
 				startMusic();
 				$(".header__flash-content").text("Stop Track");
 				$(".header__flash-content").css("border", "2px solid white");
@@ -207,6 +209,7 @@ window.onload = function(){
 	};
 
 	$(".instrument__start-button").click(function() {
+		fakeosc.start();
 		startMusic();
 		$(this).addClass("hidden");
 		$(".instrument__stop-button").removeClass("hidden");
@@ -235,6 +238,7 @@ window.onload = function(){
 	});
 
 	$(".instrument__play-button").click(function() {
+		fakeosc.start();
 		startMusic();
 		$(this).addClass("hidden");
 		$(".instrument__stop-button").removeClass("hidden");
@@ -532,6 +536,8 @@ function loadInstrumentals(){
 	});
 }
 
+var fakeosc = new Tone.Oscillator().toMaster();
+fakeosc.volume.value = "-200";
 function startMusic(){
 	if(Tone.Transport.state !== "started"){
 		Tone.Transport.start();
