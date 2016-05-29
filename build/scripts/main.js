@@ -192,7 +192,7 @@ window.onload = function(){
 
 	document.body.ontouchstart = function(e) {
 		console.log("document on touch start");
-		if (!$(".header").hasClass("hidden") && e.target.id !== "content") {
+		if (!$(".header").hasClass("hidden") && e.target.id !== "content" && $(".loader").hasClass("hidden")) {
 			$(".header").addClass("hidden");
 			$(".playlist").addClass("hidden");
 			$(".instrument__buttons").addClass("bring-to-front");
