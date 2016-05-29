@@ -149,49 +149,22 @@ window.onload = function(){
 	buttonContext = buttonCanvas.getContext('2d');
 
 	buttonCanvas.ontouchstart = function(e) {
-		console.log(e);
-		for (var i = 0; i < e.touches.length; i++) {
-			var x = e.touches[i].clientX;
-			var y = e.touches[i].clientY;
-			handleButtonClick(x, y);
-		}
-		resetInactivityTimeout();
+		handleButtonOnTouchStart(e);
 	};
 
 	buttonCanvas.ontouchmove = function(e) {
-		for (var i = 0; i < e.changedTouches.length; i++) {
-			var x = e.changedTouches[i].clientX;
-			var y = e.changedTouches[i].clientY;
-			handleButtonMove(x, y);
-		}
-		resetInactivityTimeout();
+		handleButtonOnTouchMove(e);
 	};
 
 	buttonCanvas.ontouchend = function(e) {
-		if(instrumentalInitilizer != true){
-			startMusic();
-			instrumentalInitilizer = false;
-		}
-		lastButtonX = -1;
-		lastButtonY = -1;
-	};
-
-	document.getElementById("content").ontouchstart = function(e) {
-		console.log("content touch");
-		if (isInstrumentalPlaying) {
-			stopMusic();
-			$(".header__flash-content").text("Start Track");
-			isInstrumentalPlaying = false;
-		}
-		else if (trackPlayedOnce) {
-			startMusic();
-			$(".header__flash-content").text("Stop Track");
-			isInstrumentalPlaying = true;
-		}
+		handleButtonOnTouchEnd(e);
 	};
 
 	document.body.ontouchstart = function(e) {
 		handleDocumentOnTouchStart(e);
+		if (e.target.id === "content") {
+			handleContentOnTouchStart(e);
+		}
 		return false;
 	};
 
@@ -199,6 +172,9 @@ window.onload = function(){
 		if (window.innerWidth < MOBILE_MAX_WIDTH) {
 			console.log("document on click");
 			handleDocumentOnTouchStart(e);
+			if (e.target.id === "content") {
+				handleContentOnTouchStart(e);
+			}
 		}
 	}
 
@@ -236,6 +212,47 @@ window.onload = function(){
 		$(".instrument__stop-button").removeClass("hidden");
 	});
 };
+
+function handleButtonOnTouchEnd(e) {
+	if(instrumentalInitilizer != true){
+		startMusic();
+		instrumentalInitilizer = false;
+	}
+	lastButtonX = -1;
+	lastButtonY = -1;
+}
+
+function handleButtonOnTouchMove(e) {
+	for (var i = 0; i < e.changedTouches.length; i++) {
+		var x = e.changedTouches[i].clientX;
+		var y = e.changedTouches[i].clientY;
+		handleButtonMove(x, y);
+	}
+	resetInactivityTimeout();
+}
+
+function handleButtonOnTouchStart(e) {
+	for (var i = 0; i < e.touches.length; i++) {
+		var x = e.touches[i].clientX;
+		var y = e.touches[i].clientY;
+		handleButtonClick(x, y);
+	}
+	resetInactivityTimeout();
+}
+
+function handleContentOnTouchStart(e) {
+	console.log("content touch");
+	if (isInstrumentalPlaying) {
+		stopMusic();
+		$(".header__flash-content").text("Start Track");
+		isInstrumentalPlaying = false;
+	}
+	else if (trackPlayedOnce) {
+		startMusic();
+		$(".header__flash-content").text("Stop Track");
+		isInstrumentalPlaying = true;
+	}
+}
 
 function handleDocumentOnTouchStart(e) {
 	console.log("document on touch start");
