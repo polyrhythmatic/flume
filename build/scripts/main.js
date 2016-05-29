@@ -69,6 +69,7 @@ window.onload = function(){
 	}).toMaster();
 	sampler.volume.value = -5;
 	if (window.innerWidth >= MOBILE_MAX_WIDTH) {
+		isMobile = false;
 			buff = new Tone.Buffer("sounds/instrumental.mp3", function(){
 				instrumental = new Tone.Player().toMaster();
 				instrumental.buffer = buff.get();
@@ -131,9 +132,11 @@ window.onload = function(){
 				handleKeydown(e.keyCode);
 			});
 	} else {
+		console.log("loading mobile buffers");
 		buffers[0] = new Tone.Buffer("sounds/instrumentals/instrumental_0.mp3", function(){
 			instrumentals[0].buffer = buffers[0].get();
 			instrumentals[0].sync(0);
+			loadInstrumentals();
 		});
 	}
 
@@ -559,9 +562,6 @@ var instLoad = false;
 Tone.Buffer.on("load", function(){
 	console.log("the buffer has loaded");
 	if(!instLoad){
-		if(isMobile){
-			loadInstrumentals();
-		}
 		$(".loader").addClass("hidden");
 		instLoad = true;
 	}
