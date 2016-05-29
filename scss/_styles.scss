@@ -48,6 +48,22 @@ h2 {
 	}
 }
 
+.loader__header {
+	padding: 40px 20px;
+	text-align: center;
+	width: 100%;
+	display: none;
+	position: fixed;
+	top: 0;
+	@media screen and (min-width: $screen-md-min) {
+		display: block;
+	}
+}
+
+.loader__logo {
+	max-width: 800px;	
+}
+
 .header__logo {
 	max-width: 800px;
 }
@@ -298,7 +314,7 @@ button {
   justify-content: center;
   z-index: 9999;
 	@media screen and (min-width: $screen-md-min) {
-		display: none;
+		// display: none;
 	}
 }
 
@@ -307,6 +323,10 @@ button {
   height: 50px;
   position: relative;
   margin: 0 auto;
+  @media screen and (min-width: $screen-md-min) {
+		width: 75px;
+	  height: 75px;
+  }
 }
 
 .double-bounce1, .double-bounce2 {
