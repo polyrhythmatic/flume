@@ -1,4 +1,5 @@
 var MOBILE_MAX_WIDTH = 992;
+var isMobile = true;
 var maskContext;
 var mask;
 var maskVisible = false;
@@ -44,8 +45,43 @@ glowOutline.prototype.fadeOut = function(){
 	this.isFadingIn = false;
 };
 
+var instrumental;
+var sampler;
+var buff;
 window.onload = function(){
+	sampler = new Tone.Sampler({
+		A : {
+			1 : "sounds/vocals/1.mp3",
+			2 : "sounds/vocals/2.mp3",
+			3 : "sounds/vocals/3.mp3",
+			4 : "sounds/vocals/4.mp3",
+			5 : "sounds/vocals/5.mp3",
+			6 : "sounds/vocals/6.mp3",
+			7 : "sounds/vocals/7.mp3",
+			8 : "sounds/vocals/8.mp3",
+			9 : "sounds/vocals/9.mp3",
+			10 : "sounds/vocals/10.mp3",
+			11 : "sounds/vocals/11.mp3",
+			12 : "sounds/vocals/12.mp3",
+			13 : "sounds/vocals/13.mp3",
+			14 : "sounds/vocals/14.mp3"
+		}
+	}).toMaster();
+	sampler.volume.value = -5;
 	if (window.innerWidth >= MOBILE_MAX_WIDTH) {
+			isMobile = false;
+			if(isMobile){
+				buffers[0] = new Tone.Buffer("sounds/instrumentals/instrumental_0.mp3", function(){
+				instrumentals[0].buffer = buffers[0].get();
+				instrumentals[0].sync(0);
+				});
+			} else {
+				buff = new Tone.Buffer("sounds/instrumental.mp3", function(){
+					instrumental = new Tone.Player().toMaster();
+					instrumental.buffer = buff.get();
+					instrumental.sync();
+				});
+			}
 			var maskCanvas = document.getElementById('myCanvas');
 			animationCanvas = document.getElementById('animationCanvas');
 
@@ -139,12 +175,12 @@ window.onload = function(){
 	document.getElementById("content").ontouchstart = function(e) {
 		console.log("content touch");
 		if (isInstrumentalPlaying) {
-			Tone.Transport.stop();
+			stopMusic();
 			$(".header__flash-content").text("Start Track");
 			isInstrumentalPlaying = false;
 		}
 		else if (trackPlayedOnce) {
-			Tone.Transport.start();
+			startMusic();
 			$(".header__flash-content").text("Stop Track");
 			isInstrumentalPlaying = true;
 		}
@@ -159,7 +195,7 @@ window.onload = function(){
 
 			if (!isInstrumentalPlaying && !trackPlayedOnce) {
 				$(".header__flash").removeClass("animate-flicker");
-				Tone.Transport.start();
+				startMusic();
 				$(".header__flash-content").text("Stop Track");
 				$(".header__flash-content").css("border", "2px solid white");
 				isInstrumentalPlaying = true;
@@ -171,7 +207,7 @@ window.onload = function(){
 	};
 
 	$(".instrument__start-button").click(function() {
-		Tone.Transport.start();
+		startMusic();
 		$(this).addClass("hidden");
 		$(".instrument__stop-button").removeClass("hidden");
 		if (window.innerWidth >= MOBILE_MAX_WIDTH) {
@@ -193,13 +229,13 @@ window.onload = function(){
 	});
 
 	$(".instrument__stop-button").click(function() {
-		Tone.Transport.stop();
+		stopMusic();
 		$(this).addClass("hidden");
 		$(".instrument__play-button").removeClass("hidden");
 	});
 
 	$(".instrument__play-button").click(function() {
-		Tone.Transport.start();
+		startMusic();
 		$(this).addClass("hidden");
 		$(".instrument__stop-button").removeClass("hidden");
 	});
@@ -467,41 +503,6 @@ function schedulePlay(num){
 	}
 }
 
-var sampler = new Tone.Sampler({
-	A : {
-		1 : "sounds/vocals/1.mp3",
-		2 : "sounds/vocals/2.mp3",
-		3 : "sounds/vocals/3.mp3",
-		4 : "sounds/vocals/4.mp3",
-		5 : "sounds/vocals/5.mp3",
-		6 : "sounds/vocals/6.mp3",
-		7 : "sounds/vocals/7.mp3",
-		8 : "sounds/vocals/8.mp3",
-		9 : "sounds/vocals/9.mp3",
-		10 : "sounds/vocals/10.mp3",
-		11 : "sounds/vocals/11.mp3",
-		12 : "sounds/vocals/12.mp3",
-		13 : "sounds/vocals/13.mp3",
-		14 : "sounds/vocals/14.mp3"
-	}
-}).toMaster();
-
-var instrumental = new Tone.Player({
-	"url" : "sounds/instrumental.mp3",
-});//.toMaster();
-
-var click = new Tone.SimpleSynth({
-	envelope: {
-		decay: 0.01,
-		release: 0,
-		sustain: 0
-	}
-}).toMaster();
-
-var loop = new Tone.Loop(function(time){
-	// click.triggerAttackRelease("C4", time);
-}, "4n").start(0);
-
 var buffers = [];
 var instrumentals = [];
 for(var i = 0; i < 39; i ++){
@@ -531,15 +532,35 @@ function loadInstrumentals(){
 	});
 }
 
-buffers[0] = new Tone.Buffer("sounds/instrumentals/instrumental_0.mp3", function(){
-	instrumentals[0].buffer = buffers[0].get();
-	instrumentals[0].sync(0);
-});
+function startMusic(){
+	if(Tone.Transport.state !== "started"){
+		Tone.Transport.start();
+	}
+	if(isMobile){
+		for(var i = 0; i < 39; i ++){
+			instrumentals[i].volume.value = 0;
+		}
+	} else {
+	}
+}
+
+function stopMusic(){
+	if(isMobile){
+		for(var i = 0; i < 39; i ++){
+			instrumentals[i].volume.value = -100;
+		}
+	} else{
+		Tone.Transport.pause();
+	}
+}
 
 var instLoad = false;
 Tone.Buffer.on("load", function(){
+	console.log("the buffer has loaded");
 	if(!instLoad){
-		loadInstrumentals();
+		if(isMobile){
+			loadInstrumentals();
+		}
 		$(".loader").addClass("hidden");
 		instLoad = true;
 	}
