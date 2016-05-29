@@ -303,6 +303,10 @@ function handleMouseover(color){
 			schedulePlay(2);
 			currentMouse = 2;
 			break;
+		case "25525585":
+			schedulePlay(2);
+			currentMouse = 2;
+			break;
 		case "2550255":
 			schedulePlay(3);
 			currentMouse = 3;
