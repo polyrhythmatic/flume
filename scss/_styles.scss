@@ -238,6 +238,26 @@ button {
 	outline: none;
 }
 
+.instrument__help-text {
+	display: none;
+	position: absolute;
+	color: white;
+	font-family: Swiss, Arial, sans-serif;
+	text-transform: uppercase;
+	font-size: 13px;
+	letter-spacing: 3.2px;
+	top: calc(100% - 33vw);
+	right: -40px;
+	@media screen and (min-width: $screen-md-min) {
+		display: block;
+	}
+	@media screen and (min-width: $screen-xl-min) {
+		top: initial;
+		bottom: 440px;
+		right: 23px;		
+	}
+}
+
 .instrument__start-button, .instrument__stop-button, .instrument__play-button {
 	display: none;
 	position: absolute;

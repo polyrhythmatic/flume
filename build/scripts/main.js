@@ -182,6 +182,12 @@ window.onload = function(){
 					glowOutlines[j].fadeOut();
 				}.bind(this, i), 2*(i+1)*50);
 			}
+			$(".instrument__help-text").removeClass("hidden");
+			$(".instrument__help-text").addClass("animate-flicker");
+			setTimeout(function() {
+				$(".instrument__help-text").removeClass("animate-flicker");
+				$(".instrument__help-text").addClass("hidden");
+			}, 5000);
 		}
 	});
 
