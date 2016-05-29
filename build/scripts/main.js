@@ -174,6 +174,14 @@ window.onload = function(){
 		Tone.Transport.start();
 		$(this).addClass("hidden");
 		$(".instrument__stop-button").removeClass("hidden");
+		for (var i = 0; i < 14; i++) {
+			setTimeout(function(k) {
+				glowOutlines[k].fadeIn();
+			}.bind(this, i), 2*i*50);
+			setTimeout(function(j) {
+				glowOutlines[j].fadeOut();
+			}.bind(this, i), 2*(i+1)*50);
+		}
 	});
 
 	$(".instrument__stop-button").click(function() {
