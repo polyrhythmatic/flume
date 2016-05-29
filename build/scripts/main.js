@@ -40,6 +40,7 @@ glowOutline.prototype.fadeIn = function(){
 };
 
 glowOutline.prototype.fadeOut = function(){
+	console.log("calling fadeOut");
 	this.isFadingOut = true;
 	this.isFadingIn = false;
 };
@@ -97,6 +98,10 @@ window.onload = function(){
 				handleMouseover(maskContext.getImageData(e.offsetX, e.offsetY, 1, 1).data);
 				console.log("this is the current mouse" + currentMouse);
 			};
+
+			$(window).keydown(function(e) {
+				handleKeydown(e.keyCode);
+			});
 	}
 
 	var buttonCanvas = document.getElementById("button-canvas");
@@ -183,6 +188,83 @@ window.onload = function(){
 		$(".instrument__stop-button").removeClass("hidden");
 	});
 };
+
+function handleKeydown(keyCode) {
+	switch(keyCode) {
+		case 65: //a
+			schedulePlay(1);
+			glowOutlines[0].fadeIn();
+			setTimeout(function() {glowOutlines[0].fadeOut();}, 500);
+			break;
+		case 83: //s
+			schedulePlay(2);
+			glowOutlines[1].fadeIn();
+			setTimeout(function() {glowOutlines[1].fadeOut();}, 500);
+			break;
+		case 68: //d
+			schedulePlay(3);
+			glowOutlines[2].fadeIn();
+			setTimeout(function() {glowOutlines[2].fadeOut();}, 500);
+			break;
+		case 70: //f
+			schedulePlay(4);
+			glowOutlines[3].fadeIn();
+			setTimeout(function() {glowOutlines[3].fadeOut();}, 500);
+			break;
+		case 71: //g
+			schedulePlay(5);
+			glowOutlines[4].fadeIn();
+			setTimeout(function() {glowOutlines[4].fadeOut();}, 500);
+			break;
+		case 72: //h
+			schedulePlay(6);
+			glowOutlines[5].fadeIn();
+			setTimeout(function() {glowOutlines[5].fadeOut();}, 500);
+			break;
+		case 74: //j
+			schedulePlay(7);
+			glowOutlines[6].fadeIn();
+			setTimeout(function() {glowOutlines[6].fadeOut();}, 500);
+			break;
+		case 75: //k
+			schedulePlay(8);
+			glowOutlines[7].fadeIn();
+			setTimeout(function() {glowOutlines[7].fadeOut();}, 500);
+			break;
+		case 76: //l
+			schedulePlay(9);
+			glowOutlines[8].fadeIn();
+			setTimeout(function() {glowOutlines[8].fadeOut();}, 500);
+			break;
+		case 90: //z
+			schedulePlay(10);
+			glowOutlines[9].fadeIn();
+			setTimeout(function() {glowOutlines[9].fadeOut();}, 500);
+			break;
+		case 88: //x
+			schedulePlay(11);
+			glowOutlines[10].fadeIn();
+			setTimeout(function() {glowOutlines[10].fadeOut();}, 500);
+			break;
+		case 67: //c
+			schedulePlay(12);
+			glowOutlines[11].fadeIn();
+			setTimeout(function() {glowOutlines[11].fadeOut();}, 500);
+			break;
+		case 86: //v
+			schedulePlay(13);
+			glowOutlines[12].fadeIn();
+			setTimeout(function() {glowOutlines[12].fadeOut();}, 500);
+			break;
+		case 66: //b
+			schedulePlay(14);
+			glowOutlines[13].fadeIn();
+			setTimeout(function() {glowOutlines[13].fadeOut();}, 500);
+			break;
+		default:
+			break;
+	}
+}
 
 function resetInactivityTimeout() {
 	clearTimeout(inactivityTimeout);
