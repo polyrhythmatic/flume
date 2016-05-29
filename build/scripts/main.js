@@ -73,7 +73,7 @@ window.onload = function(){
 			if(isMobile){
 				buffers[0] = new Tone.Buffer("sounds/instrumentals/instrumental_0.mp3", function(){
 				instrumentals[0].buffer = buffers[0].get();
-				instrumentals[0].start();
+				instrumentals[0].start(0);
 				});
 			} else {
 				buff = new Tone.Buffer("sounds/instrumental.mp3", function(){
@@ -168,6 +168,7 @@ window.onload = function(){
 	};
 
 	buttonCanvas.ontouchend = function(e) {
+		fakeosc.start();
 		lastButtonX = -1;
 		lastButtonY = -1;
 	};
@@ -533,7 +534,6 @@ function loadInstrumentals(){
 }
 
 var fakeosc = new Tone.Oscillator().toMaster();
-fakeosc.volume.value = "-200";
 function startMusic(){
 	if(Tone.Transport.state !== "started"){
 		Tone.Transport.start();
