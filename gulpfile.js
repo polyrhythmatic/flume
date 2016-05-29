@@ -8,11 +8,11 @@ var sass = require('gulp-sass');
 var inject = require('gulp-inject');
 var cache = require('gulp-cache');
 var del = require('del');
-var cache = require('gulp-cached');
+var cleanCache = require('gulp-cached');
 var runSequence = require('run-sequence');
 
 gulp.task('clean', function() {
-	cache.caches = {};
+	cleanCache.caches = {};
 	del.sync('./build');
 });
 
