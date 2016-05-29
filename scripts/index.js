@@ -150,15 +150,31 @@ window.onload = function(){
 
 	buttonCanvas.ontouchstart = function(e) {
 		handleButtonOnTouchStart(e);
+		return false;
 	};
+
+	buttonCanvas.onmousedown = function(e) {
+		handleButtonClick(e.clientX, e.clientY);
+		resetInactivityTimeout();
+	}
 
 	buttonCanvas.ontouchmove = function(e) {
 		handleButtonOnTouchMove(e);
+		return false;
 	};
+
+	buttonCanvas.onmousemove = function(e) {
+		handleButtonMove(e.clientX, e.clientY);
+		resetInactivityTimeout();
+	}
 
 	buttonCanvas.ontouchend = function(e) {
 		handleButtonOnTouchEnd(e);
 	};
+
+	buttonCanvas.onmouseup = function(e) {
+		handleButtonOnTouchEnd(e);
+	}
 
 	document.body.ontouchstart = function(e) {
 		handleDocumentOnTouchStart(e);
