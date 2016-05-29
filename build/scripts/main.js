@@ -19,7 +19,7 @@ var lastButtonY;
 var inactivityTimeout;
 var isInstrumentalPlaying = false;
 var trackPlayedOnce = false;
-
+var instrumentalInitilizer = false; //this is only used once
 
 var glowOutlines = [];
 var stage = new PIXI.Container();
@@ -168,7 +168,10 @@ window.onload = function(){
 	};
 
 	buttonCanvas.ontouchend = function(e) {
-		fakeosc.start();
+		if(instrumentalInitilizer != true){
+			startMusic();
+			instrumentalInitilizer = false;
+		}
 		lastButtonX = -1;
 		lastButtonY = -1;
 	};
@@ -533,7 +536,6 @@ function loadInstrumentals(){
 	});
 }
 
-var fakeosc = new Tone.Oscillator().toMaster();
 function startMusic(){
 	if(Tone.Transport.state !== "started"){
 		Tone.Transport.start();
