@@ -48,7 +48,12 @@ window.onload = function(){
 	if (window.innerWidth >= MOBILE_MAX_WIDTH) {
 			var maskCanvas = document.getElementById('myCanvas');
 			animationCanvas = document.getElementById('animationCanvas');
-			var renderer = new PIXI.autoDetectRenderer(700, 700, {
+
+			maskCanvas.width = $("#myCanvas").width();
+			maskCanvas.height = $("#myCanvas").width();
+			animationCanvas.width = $("#animationCanvas").width();
+			animationCanvas.height = $("#animationCanvas").width();
+			var renderer = new PIXI.autoDetectRenderer(animationCanvas.width, animationCanvas.height, {
 				view: animationCanvas,
 				transparent: true
 			});
@@ -85,7 +90,7 @@ window.onload = function(){
 			var mask = new Image();
 			mask.src = "images/mask-update.png";
 			mask.onload = function() {
-				maskContext.drawImage(mask, 0, 0, 720, 720);
+				maskContext.drawImage(mask, 0, 0, maskCanvas.width, maskCanvas.height);
 			};
 
 			maskCanvas.onmousemove=function(e){
@@ -279,6 +284,7 @@ var currentMouse = 0;
 
 function handleMouseover(color){
 	color = color[0].toString() + color[1].toString() + color[2].toString();
+	console.log(color);
 	switch(color) {
 		case "000":
 			if(currentMouse !== 0) {
