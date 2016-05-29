@@ -220,7 +220,7 @@ window.onload = function(){
 			setTimeout(function() {
 				$(".instrument__help-text").removeClass("animate-flicker");
 				$(".instrument__help-text").addClass("hidden");
-			}, 5000);
+			}, 10000);
 		}
 	});
 
