@@ -69,19 +69,11 @@ window.onload = function(){
 	}).toMaster();
 	sampler.volume.value = -5;
 	if (window.innerWidth >= MOBILE_MAX_WIDTH) {
-			isMobile = false;
-			if(isMobile){
-				buffers[0] = new Tone.Buffer("sounds/instrumentals/instrumental_0.mp3", function(){
-				instrumentals[0].buffer = buffers[0].get();
-				instrumentals[0].start(0);
-				});
-			} else {
-				buff = new Tone.Buffer("sounds/instrumental.mp3", function(){
-					instrumental = new Tone.Player().toMaster();
-					instrumental.buffer = buff.get();
-					instrumental.sync();
-				});
-			}
+			buff = new Tone.Buffer("sounds/instrumental.mp3", function(){
+				instrumental = new Tone.Player().toMaster();
+				instrumental.buffer = buff.get();
+				instrumental.sync();
+			});
 			var maskCanvas = document.getElementById('myCanvas');
 			animationCanvas = document.getElementById('animationCanvas');
 
@@ -138,6 +130,11 @@ window.onload = function(){
 			$(window).keydown(function(e) {
 				handleKeydown(e.keyCode);
 			});
+	} else {
+		buffers[0] = new Tone.Buffer("sounds/instrumentals/instrumental_0.mp3", function(){
+			instrumentals[0].buffer = buffers[0].get();
+			instrumentals[0].sync(0);
+		});
 	}
 
 	var buttonCanvas = document.getElementById("button-canvas");
