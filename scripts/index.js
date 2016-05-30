@@ -168,10 +168,10 @@ console.log('%c Made by Seth Kranzler and Cassie Tarkajian || http://sethkranzle
 		return false;
 	};
 
-	buttonCanvas.onmousemove = function(e) {
-		handleButtonMove(e.clientX, e.clientY);
-		resetInactivityTimeout();
-	}
+	// buttonCanvas.onmousemove = function(e) {
+	// 	handleButtonMove(e.clientX, e.clientY);
+	// 	resetInactivityTimeout();
+	// }
 
 	buttonCanvas.ontouchend = function(e) {
 		handleButtonOnTouchEnd(e);
@@ -185,6 +185,9 @@ console.log('%c Made by Seth Kranzler and Cassie Tarkajian || http://sethkranzle
 		handleDocumentOnTouchStart(e);
 		if (e.target.id === "content") {
 			handleContentOnTouchStart(e);
+		}
+		else if (e.target.id === "facebook" || e.target.id === "twitter") {
+			return true;
 		}
 		return false;
 	};
@@ -277,9 +280,11 @@ function handleContentOnTouchStart(e) {
 
 function handleDocumentOnTouchStart(e) {
 	// console.log("document on touch start");
-	if (!$(".header").hasClass("hidden") && e.target.id !== "content" && $(".loader").hasClass("hidden")) {
+	if (!$(".header").hasClass("hidden") && e.target.id !== "content" && $(".loader").hasClass("hidden") 
+			&& e.target.id !== "facebook" && e.target.id !== "twitter") {
 		$(".header").addClass("hidden");
 		$(".playlist").addClass("hidden");
+		$(".share").addClass("hidden");
 		$(".instrument__buttons").addClass("bring-to-front");
 
 		if (!isInstrumentalPlaying && !trackPlayedOnce) {
@@ -378,6 +383,7 @@ function resetInactivityTimeout() {
 	inactivityTimeout  = setTimeout(function() {
 		$(".header").removeClass("hidden");
 		$(".playlist").removeClass("hidden");
+		$(".share").removeClass("hidden");
 		$(".instrument__buttons").removeClass("bring-to-front");
 	}, 3000);
 }

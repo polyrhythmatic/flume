@@ -90,7 +90,7 @@ h2 {
 	@media screen and (min-width: $screen-md-min) {
 		width: 50%;
 		position: initial;
-		padding: 0 60px;
+		padding: 0 70px;
 		padding-top: 70px;
 		display: flex;
 		flex-direction: column;
@@ -371,9 +371,20 @@ button {
 
 .share {
 	position: absolute;
-	bottom: 0;
-	right: 0;
+	bottom: 50%;
 	z-index: 5;
+	padding: 10px;
+	width: 100%;
+	text-align: center;
+	@media screen and (min-width: $screen-md-min) {
+		bottom: 0;
+		right: 0;
+		width: initial;
+  }
+}
+
+.share__twitter-icon, .share__facebook-icon {
+	height: 30px;
 }
 
 .hidden {
