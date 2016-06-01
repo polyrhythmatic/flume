@@ -75,11 +75,6 @@ console.log('%c Made by Seth Kranzler and Cassie Tarkajian || http://sethkranzle
 	sampler.volume.value = -5;
 	if (window.innerWidth >= MOBILE_MAX_WIDTH) {
 		isMobile = false;
-			buff = new Tone.Buffer("sounds/instrumental.mp3", function(){
-				instrumental = new Tone.Player().toMaster();
-				instrumental.buffer = buff.get();
-				instrumental.sync();
-			});
 			var maskCanvas = document.getElementById('myCanvas');
 			animationCanvas = document.getElementById('animationCanvas');
 
@@ -136,14 +131,13 @@ console.log('%c Made by Seth Kranzler and Cassie Tarkajian || http://sethkranzle
 			$(window).keydown(function(e) {
 				handleKeydown(e.keyCode);
 			});
-	} else {
-		// console.log("loading mobile buffers");
-		buffers[0] = new Tone.Buffer("sounds/instrumentals/instrumental_0.mp3", function(){
-			instrumentals[0].buffer = buffers[0].get();
-			instrumentals[0].sync(0);
-			loadInstrumentals();
-		});
-	}
+	} 
+
+	buff = new Tone.Buffer("sounds/NBLY_Chorus.mp3", function(){
+		instrumental = new Tone.Player({'loop': true}).toMaster();
+		instrumental.buffer = buff.get();
+		instrumental.sync();
+	});
 
 	var buttonCanvas = document.getElementById("button-canvas");
 	buttonCanvas.width = window.innerWidth;
@@ -563,55 +557,15 @@ function schedulePlay(num){
 	}
 }
 
-var buffers = [];
-var instrumentals = [];
-for(var i = 0; i < 39; i ++){
-	instrumentals[i] = new Tone.Player().toMaster();
-	buffers[i] = new Tone.Buffer();
-}
-
-var bufferNums = [];
-for(var i = 0; i < 38; i ++){
-	bufferNums[i] = i + 1;
-}
-
-function loadInstrumentals(){
-	async.eachSeries(bufferNums, function(bufferNum, cb){
-		buffers[bufferNum].load("sounds/instrumentals/instrumental_" + bufferNum + ".mp3", function(){
-			instrumentals[bufferNum].buffer = buffers[bufferNum].get();
-			var timeStart = (bufferNum * 3) + ":0:0";
-			Tone.Transport.schedule(function(){
-				instrumentals[bufferNum].start(timeStart);
-			}, timeStart);
-			// instrumentals[bufferNum].sync(timeStart);
-			// console.log("loaded " + bufferNum);
-			cb();
-		}, function(err){
-
-		});
-	});
-}
-
 function startMusic(){
 	if(Tone.Transport.state !== "started"){
 		Tone.Transport.start();
 	}
-	if(isMobile){
-		for(var i = 0; i < 39; i ++){
-			instrumentals[i].volume.value = 0;
-		}
-	} else {
-	}
+	instrumental.start();
 }
 
 function stopMusic(){
-	if(isMobile){
-		for(var i = 0; i < 39; i ++){
-			instrumentals[i].volume.value = -100;
-		}
-	} else{
-		Tone.Transport.pause();
-	}
+	instrumental.stop();
 }
 
 var instLoad = false;
