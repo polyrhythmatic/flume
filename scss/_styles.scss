@@ -307,6 +307,8 @@ button {
 
 .instrument__stop-button, .instrument__play-button {
 	transform: translateX(30%);
+	padding-top: 0.9rem;
+	padding-bottom: 0.7rem;
 	@media screen and (min-width: $screen-xl-min) {
 	}
 }
