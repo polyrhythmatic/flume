@@ -137,7 +137,7 @@ window.onload = function(){
 	buttonCanvas.width = window.innerWidth;
 	buttonCanvas.height = window.innerHeight;
 	buttonWidth = window.innerWidth/2;
-	buttonHeight = window.innerHeight/7;
+	buttonHeight = window.innerHeight/5;
 
 	buttonContext = buttonCanvas.getContext('2d');
 
