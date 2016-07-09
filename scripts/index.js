@@ -335,30 +335,11 @@ function handleKeydown(keyCode) {
 			glowOutlines[8].fadeIn();
 			setTimeout(function() {glowOutlines[8].fadeOut();}, 500);
 			break;
-		case 90: //z
+		case 59: // ;
+		case 186: // IE ;
 			schedulePlay(10);
 			glowOutlines[9].fadeIn();
 			setTimeout(function() {glowOutlines[9].fadeOut();}, 500);
-			break;
-		case 88: //x
-			schedulePlay(11);
-			glowOutlines[10].fadeIn();
-			setTimeout(function() {glowOutlines[10].fadeOut();}, 500);
-			break;
-		case 67: //c
-			schedulePlay(12);
-			glowOutlines[11].fadeIn();
-			setTimeout(function() {glowOutlines[11].fadeOut();}, 500);
-			break;
-		case 86: //v
-			schedulePlay(13);
-			glowOutlines[12].fadeIn();
-			setTimeout(function() {glowOutlines[12].fadeOut();}, 500);
-			break;
-		case 66: //b
-			schedulePlay(14);
-			glowOutlines[13].fadeIn();
-			setTimeout(function() {glowOutlines[13].fadeOut();}, 500);
 			break;
 		default:
 			break;
@@ -427,12 +408,6 @@ function playVocalSound(buttonX, buttonY) {
 			case 4:
 				schedulePlay(9);
 				break;
-			case 5:
-				schedulePlay(12);
-				break;
-			case 6:
-				schedulePlay(13);
-				break;
 		}
 	}
 	else {
@@ -451,12 +426,6 @@ function playVocalSound(buttonX, buttonY) {
 				break;
 			case 4:
 				schedulePlay(10);
-				break;
-			case 5:
-				schedulePlay(11);
-				break;
-			case 6:
-				schedulePlay(14);
 				break;
 		}
 	}
@@ -516,18 +485,6 @@ function handleMouseover(color){
 		case "85085":
 			schedulePlay(10);
 			currentMouse = 10;
-			break;
-		case "8500":
-			schedulePlay(12);
-			currentMouse = 12;
-			break;
-		case "0085":
-			schedulePlay(13);
-			currentMouse = 13;
-			break;
-		case "0850":
-			schedulePlay(14);
-			currentMouse = 14;
 			break;
 	}
 }
