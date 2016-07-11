@@ -5,6 +5,7 @@ var uglify = require('gulp-uglify');
 var autoprefixer = require('gulp-autoprefixer');
 var cleanCSS = require('gulp-clean-css');
 var sass = require('gulp-sass');
+var nano = require('gulp-cssnano');
 var inject = require('gulp-inject');
 var cache = require('gulp-cache');
 var del = require('del');
@@ -42,7 +43,7 @@ gulp.task('vendor-scripts', function() {
 gulp.task('scripts', function() {
 	gulp.src(['./scripts/index.js'])
 	.pipe(concat('main.js'))
-	// .pipe(uglify())
+	.pipe(uglify())
 	.pipe(gulp.dest('./build/scripts'));
 });
 
@@ -51,6 +52,7 @@ gulp.task('styles', function(){
 	.pipe(sass())
   .pipe(autoprefixer({ browsers: ['last 3 versions'] }))
   .pipe(cleanCSS({compatibility: 'ie8'}))
+  .pipe(nano())
   .pipe(gulp.dest('build/styles/'))
 });
 
