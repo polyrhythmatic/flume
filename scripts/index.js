@@ -126,7 +126,7 @@ window.onload = function(){
 			});
 	} 
 
-	buff = new Tone.Buffer("sounds/say-it-regular.mp3", function(){
+	buff = new Tone.Buffer("sounds/say-it-instrumental.mp3", function(){
 		instrumental = new Tone.Player({'loop': true, 'autostart': false}).toMaster();
 		instrumental.buffer = buff.get();
 		instrumental.sync();
